@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="storemanagement.SelectFunctionController">
+   <children>
+      <Label fx:id="Title_StoreMgmt" layoutX="38.0" layoutY="40.0" prefHeight="41.0" prefWidth="136.0" text="매장관리">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Button fx:id="BTN_FavMenu" layoutX="8.0" layoutY="156.0" mnemonicParsing="false">
+         <graphic>
+            <ImageView fx:id="Img_FavMenu" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/favmenu.JPG" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="BTN_DiscountMenu" layoutX="153.0" layoutY="156.0" mnemonicParsing="false" prefHeight="158.0" prefWidth="137.0">
+         <graphic>
+            <ImageView fx:id="Img_DiscountMenu" fitHeight="143.0" fitWidth="121.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Salemenu.JPG" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="BTN_PayMethod" layoutX="300.0" layoutY="156.0" mnemonicParsing="false" prefHeight="158.0" prefWidth="147.0">
+         <graphic>
+            <ImageView fx:id="Img_PayMethod" fitHeight="143.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/payabliility.JPG" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="BTN_OrderMgmt" layoutX="457.0" layoutY="156.0" mnemonicParsing="false" onAction="#OrderMgmtClicked" prefHeight="158.0" prefWidth="137.0">
+         <graphic>
+            <ImageView fx:id="Img_OrderMgmt" fitHeight="140.0" fitWidth="147.0" onMouseClicked="#OrderMgmtClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/OrderManage.JPG" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

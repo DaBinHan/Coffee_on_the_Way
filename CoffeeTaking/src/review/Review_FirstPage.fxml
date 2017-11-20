@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="review.Review_FirstPageController">
+   <children>
+      <Button fx:id="NewReview" layoutX="90.0" layoutY="125.0" mnemonicParsing="false" onAction="#btn_newReview" prefHeight="150.0" prefWidth="150.0" text="신규 리뷰 작성" />
+      <Button fx:id="ExistingReview" layoutX="364.0" layoutY="125.0" mnemonicParsing="false" onAction="#btn_existingReview" prefHeight="150.0" prefWidth="150.0" text="기존리뷰 수정/갱신" />
+   </children>
+</AnchorPane>

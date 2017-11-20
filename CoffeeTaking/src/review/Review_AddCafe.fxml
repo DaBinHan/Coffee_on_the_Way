@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.141">
+   <children>
+      <TextField fx:id="Question_AddCafe" layoutX="209.0" layoutY="140.0" prefHeight="25.0" prefWidth="200.0" text="자주가는 매장에 추가하겠어요?" />
+      <Button fx:id="BTN_Yes" layoutX="228.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="네" />
+      <Button fx:id="BTN_No" layoutX="305.0" layoutY="189.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="아니오" />
+   </children>
+</AnchorPane>

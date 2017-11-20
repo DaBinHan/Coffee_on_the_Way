@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/9">
+   <children>
+      <Button fx:id="ChargeCoffee" layoutX="372.0" layoutY="165.0" mnemonicParsing="false" text="Charge Coffee Bean" />
+      <Button fx:id="Pay" layoutX="263.0" layoutY="273.0" mnemonicParsing="false" text="Pay for it" />
+      <Label layoutX="105.0" layoutY="183.0" text="Payment amount" />
+      <Label layoutX="113.0" layoutY="151.0" text="holding amount" />
+   </children>
+</AnchorPane>

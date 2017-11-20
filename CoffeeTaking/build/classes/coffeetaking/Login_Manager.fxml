@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="coffeetaking.Login_ManagerController">
+   <children>
+      <ImageView fx:id="ImageView_Main_Icon" fitHeight="120.0" fitWidth="60.0" layoutX="320.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/CoffeeTaking%20Icon.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="Label_Main_Title" layoutX="40.0" layoutY="35.0" prefHeight="90.0" prefWidth="290.0" text="커피들고 가는 길" textFill="#d9820b">
+         <font>
+            <Font name="HYHeadLine-Medium" size="36.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TextField_ID" layoutX="228.0" layoutY="148.0" prefHeight="23.0" prefWidth="204.0" />
+      <Label fx:id="Label_ID" layoutX="170.0" layoutY="148.0" prefHeight="23.0" prefWidth="58.0" text="ID" />
+      <Label fx:id="Label_Password" layoutX="170.0" layoutY="209.0" prefHeight="23.0" prefWidth="58.0" text="Password" />
+      <PasswordField fx:id="TextField_Password" layoutX="228.0" layoutY="209.0" prefHeight="23.0" prefWidth="204.0" />
+      <Button fx:id="BTN_Login" layoutX="432.0" layoutY="300.0" mnemonicParsing="false" onAction="#Push_BTN_Login" prefHeight="48.0" prefWidth="74.0" text="로그인">
+         <font>
+            <Font name="HYHeadLine-Medium" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
