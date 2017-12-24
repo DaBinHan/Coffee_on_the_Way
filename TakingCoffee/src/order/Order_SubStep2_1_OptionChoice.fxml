@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.Order_SubStep2_1_OptionChoiceController">
+   <children>
+      <Label fx:id="Label_OptionChoice" layoutY="7.0" text="선택 사항을 적어주세요.">
+         <font>
+            <Font name="HYGothic-Extra" size="24.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TextField_OptionChoice" layoutY="45.0" prefHeight="132.0" prefWidth="410.0" />
+      <Button fx:id="BTN_OptionWrite" layoutY="177.0" mnemonicParsing="false" onAction="#Push_BTN_OptionWrite" prefHeight="34.0" prefWidth="410.0" text="완료" />
+   </children>
+</AnchorPane>
