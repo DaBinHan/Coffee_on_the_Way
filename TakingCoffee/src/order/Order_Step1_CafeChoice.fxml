@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.Order_Step1_CafeChoiceController">
+   <children>
+      <ImageView fx:id="ImageView_MainTitle" fitHeight="185.0" fitWidth="342.0" layoutX="24.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/CR_title_final.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_StoreSearch" fitHeight="33.0" fitWidth="39.0" layoutX="657.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/storecon.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="TextField_StoreSearch" layoutX="690.0" layoutY="67.0" prefHeight="25.0" prefWidth="138.0" promptText="매장 검색" />
+      <Button fx:id="BTN_StoreSearch" layoutX="828.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="12.0">
+         <graphic>
+            <ImageView fx:id="ImageView_Lens" fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="Label_Logout" layoutX="432.0" layoutY="72.0" text="로그아웃">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_CustomerService" layoutX="508.0" layoutY="72.0" text="고객지원">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_AboutUs" layoutX="587.0" layoutY="72.0" text="About Us">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator fx:id="Separator_first" layoutX="497.0" layoutY="73.0" orientation="VERTICAL" prefHeight="15.0" prefWidth="3.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <ColorInput height="15.0" paint="#525252" width="2.0" />
+         </effect>
+      </Separator>
+      <Separator fx:id="Separator_second" layoutX="573.0" layoutY="73.0" orientation="VERTICAL" prefHeight="15.0" prefWidth="3.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <ColorInput height="15.0" paint="#525252" width="2.0" />
+         </effect>
+      </Separator>
+      <ImageView fx:id="ImageView_Gift_heading" fitHeight="25.0" fitWidth="80.0" layoutX="454.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/gift_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Review_heading" fitHeight="25.0" fitWidth="80.0" layoutX="554.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/review_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Store_heading" fitHeight="25.0" fitWidth="80.0" layoutX="774.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/storemgmt_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="25.0" fitWidth="100.0" layoutX="654.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/mypage_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Order_heading" fitHeight="40.0" fitWidth="106.0" layoutX="337.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/order_heading2.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="Label_step1" layoutX="150.0" layoutY="205.0" prefHeight="54.0" prefWidth="186.0" text="Step1. 카페 선택">
+         <font>
+            <Font name="HYHeadLine-Medium" size="20.0" />
+         </font>
+      </Label>
+      <TextField fx:id="TextField_SearchBar" layoutX="150.0" layoutY="275.0" prefHeight="25.0" prefWidth="156.0" promptText="카페 이름으로 검색" />
+      <Button fx:id="BTN_Step1_StoreSearch" layoutX="306.0" layoutY="275.0" mnemonicParsing="false" onAction="#Push_BTN_Step1_StoreSearch" prefHeight="25.0" prefWidth="12.0" style="-fx-background-color: skyblue;">
+         <graphic>
+            <ImageView fx:id="ImageView_Step1_Lens" fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TableView fx:id="TableView_MyCafe" layoutX="150.0" layoutY="312.0" prefHeight="226.0" prefWidth="186.0">
+        <columns>
+          <TableColumn fx:id="TableColumn_MyCafe" prefWidth="185.0" text="자주 가는 카페 목록" />
+        </columns>
+      </TableView>
+      <TableView fx:id="TableView_MyGificon" layoutX="628.0" layoutY="275.0" prefHeight="264.0" prefWidth="216.0">
+        <columns>
+          <TableColumn fx:id="TableColumn_MyGificon_Cafe" prefWidth="107.66668701171875" text="카페" />
+          <TableColumn fx:id="TableColumn_MyGificon_Menu" prefWidth="107.33331298828125" text="메뉴" />
+        </columns>
+      </TableView>
+      <Label fx:id="Label_MyGifticon" layoutX="628.0" layoutY="250.0" prefHeight="25.0" prefWidth="186.0" text="나의 기프티콘">
+         <font>
+            <Font name="HYHeadLine-Medium" size="14.0" />
+         </font>
+      </Label>
+      <TableView fx:id="TableView_Cafe_Uni" layoutX="423.0" layoutY="275.0" prefHeight="264.0" prefWidth="156.0">
+        <columns>
+          <TableColumn fx:id="TableColumn_Cafe_Uni" prefWidth="155.0" text="카페 이름" />
+        </columns>
+      </TableView>
+      <Label fx:id="Label_Cafe_Uni" layoutX="423.0" layoutY="250.0" prefHeight="25.0" prefWidth="186.0" text="우리 대학 근처 카페">
+         <font>
+            <Font name="HYHeadLine-Medium" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="BTN_MyCafe" layoutX="150.0" layoutY="538.0" mnemonicParsing="false" onAction="#Push_BTN_MyCafe" prefHeight="23.0" prefWidth="186.0" text="선택" />
+      <Button fx:id="BTN_Cafe_Uni" layoutX="423.0" layoutY="538.0" mnemonicParsing="false" onAction="#Push_BTN_Cafe_Uni" prefHeight="23.0" prefWidth="156.0" text="선택" />
+      <Button fx:id="BTN_MyGifticon" layoutX="628.0" layoutY="538.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="216.0" text="선택" />
+   </children>
+</AnchorPane>
