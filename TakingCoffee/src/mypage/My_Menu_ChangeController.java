@@ -61,6 +61,7 @@ public class My_Menu_ChangeController implements Initializable {
     
 
     // ** btnchange click 하면 새 창 닫아지고 원래 창만 남도록
+    // ** btnchange 버튼을 누르면 원래 창의 list가 리뉴얼되도록!
     @FXML
     public void btnChangeClick(ActionEvent event) throws Exception{
         

@@ -90,9 +90,10 @@ public class My_FavoriteController implements Initializable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
-    // tableview에 뿌리기 위한 리스트
-    // <>에는 tableview에 뿌리고 싶은 객체 이름을 넣는다
     private ObservableList<FavoriteCafe> data = FXCollections.observableArrayList();
+
+    // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+    private ObservableList<FavoriteCafe> data2 = FXCollections.observableArrayList();
 
     //controller 생상자에는 db와 연결하려는 문장을 적어줘야 한다.
     // 언제 db가 필요할 지 모르니깐 항상 써주자.
@@ -105,6 +106,7 @@ public class My_FavoriteController implements Initializable {
         initTB_FavoriteList();
     }
 
+    // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     private void initTB_FavoriteList() {
         
         String sql = "SELECT * FROM favorite_cafe WHERE consumer_id = ?"; // sql문 하드코딩
@@ -162,6 +164,7 @@ public class My_FavoriteController implements Initializable {
         mainStage.getScene().setRoot(window1);
     }
     
+    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     private void btnInputAdd(ActionEvent event) {
 
@@ -197,14 +200,6 @@ public class My_FavoriteController implements Initializable {
                     preparedStatement.setString(2, favoritecafename);
                     preparedStatement.executeUpdate();
                     infoBox("자주 가는 매장 목록에 등록되었습니다.", null, null);
-                    
-                    /*
-                                    biaDB.Consumer.setPhone(resultSet.getString("phonenumber"));
-                GabiaDB.Consumer.setUniName(resultSet.getString("uni_name"));
-                GabiaDB.Consumer.setEmail(resultSet.getString("Email"));
-                GabiaDB.Consumer.setBeanAmount(resultSet.getString("BeanAmount"));
-
-                    */
                 }
             }
         } catch (Exception e) {
@@ -235,6 +230,7 @@ public class My_FavoriteController implements Initializable {
     }
      */
     
+    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     public void btnDeleteClick(ActionEvent event) {
         

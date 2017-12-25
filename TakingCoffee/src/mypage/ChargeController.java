@@ -104,7 +104,9 @@ public class ChargeController implements Initializable {
     private ObservableList<ChargeInfo> data = FXCollections.observableArrayList();
     private ObservableList<Consumer> data2 = FXCollections.observableArrayList();
     
-    
+    // ** observable list를 새로 추가해서 btnCharge를 눌렀을 때 리스트가 리뉴얼되도록!
+    private ObservableList<ChargeInfo> data3 = FXCollections.observableArrayList();
+        
     public ChargeController() {
         connection = ConnectionUtil.connectdb();
     }
@@ -138,6 +140,7 @@ public class ChargeController implements Initializable {
         Label_BeanAmount.setText(BeanAmount);
     }
     
+    // ** btnCharge를 눌렀을 때 리스트가 리뉴얼되도록!
     private void initTB_ChargeList(){
                 
         String sql = "SELECT * FROM charge WHERE consumer_id = ?"; // sql문 하드코딩
@@ -268,5 +271,7 @@ public class ChargeController implements Initializable {
         // run 되는 동안 Consumer 클래스 안의 BeanAmount 갱신
         // Consumer 클래스의 하드코딩을 없애고 로그인한 정보를 넣는다면 없어도 되는 코드다.
         TakingCoffee.Consumer.setBeanAmount(String.valueOf(amountafter));
+
+        Label_BeanAmount.setText(String.valueOf(amountafter));
     }
 }

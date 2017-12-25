@@ -112,6 +112,9 @@ public class My_MenuController implements Initializable {
 
     private ObservableList<MyMenuInfo> data = FXCollections.observableArrayList();
 
+    // ** observable list를 새로 추가해서 btnAdd, btnChange, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+    private ObservableList<MyMenuInfo> data2 = FXCollections.observableArrayList();
+
     public My_MenuController() {
         connection = ConnectionUtil.connectdb();
     }
@@ -122,6 +125,7 @@ public class My_MenuController implements Initializable {
         initTB_MyMenuList();
     }
 
+    // ** observable list를 새로 추가해서 btnAdd, btnChange, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     private void initTB_MyMenuList() {
 
         String sql = "SELECT * FROM mymenu WHERE consumer_id = ?"; // sql문 하드코딩
@@ -207,6 +211,7 @@ public class My_MenuController implements Initializable {
         mainStage.getScene().setRoot(window1);
     }
 
+    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     private void btnAdd(ActionEvent event) {
 
@@ -267,6 +272,7 @@ public class My_MenuController implements Initializable {
         
 
     // ** btnChange누르면 새 창이 뜨는데, 새 창에서 수정 버튼을 누르면 새 창이 사라지고 원래 창만 남도록
+    // ** 원래 창의 수정버튼이 아니라 새 창의 수정버튼을 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     public void btnChange(ActionEvent event) throws Exception {        
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
@@ -286,6 +292,7 @@ public class My_MenuController implements Initializable {
         stage.show();
     }
 
+    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     public void btnDeleteClick(ActionEvent event) {
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
