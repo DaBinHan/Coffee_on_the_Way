@@ -59,6 +59,8 @@ public class My_Menu_ChangeController implements Initializable {
         // TODO
     }
     
+
+    // ** btnchange click 하면 새 창 닫아지고 원래 창만 남도록
     @FXML
     public void btnChangeClick(ActionEvent event) throws Exception{
         

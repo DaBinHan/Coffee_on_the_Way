@@ -265,6 +265,8 @@ public class My_MenuController implements Initializable {
     public String mymenuname;
     public String myopt;
         
+
+    // ** btnChange누르면 새 창이 뜨는데, 새 창에서 수정 버튼을 누르면 새 창이 사라지고 원래 창만 남도록
     @FXML
     public void btnChange(ActionEvent event) throws Exception {        
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
