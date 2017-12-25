@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="205.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mypage.Charge_InformController">
+   <children>
+      <Label fx:id="Label_Account" layoutX="12.0" layoutY="21.0" prefHeight="43.0" prefWidth="385.0" text="계좌번호">
+         <font>
+            <Font name="HYGothic-Extra" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_AccountNumber" layoutX="44.0" layoutY="60.0" prefHeight="43.0" prefWidth="347.0" text="1002-350-000000 (우리은행)">
+         <font>
+            <Font name="HYGothic-Extra" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_We" layoutX="12.0" layoutY="103.0" prefHeight="43.0" prefWidth="385.0" text="예금주명">
+         <font>
+            <Font name="HYGothic-Extra" size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_OurName" layoutX="44.0" layoutY="139.0" prefHeight="43.0" prefWidth="347.0" text="융합소프트웨어종합설계 2조">
+         <font>
+            <Font name="HYGothic-Extra" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
