@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.ColorInput?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mypage.ChargeController">
+   <children>
+      <TableView fx:id="TB_ChargeList" layoutX="150.0" layoutY="302.0" prefHeight="245.0" prefWidth="534.0">
+         <columns>
+            <TableColumn fx:id="TB_ChargeDate" prefWidth="184.0" text="충전 날짜" />
+            <TableColumn fx:id="TB_ChargeAmount" prefWidth="180.0" text="충전한 금액" />
+            <TableColumn fx:id="TB_DepositCheck" minWidth="0.0" prefWidth="171.0" text="입금 여부" />
+         </columns>
+      </TableView>
+      <TextField fx:id="TextField_ChargeInput" layoutX="504.0" layoutY="562.0" prefHeight="25.0" prefWidth="138.0" promptText="충전할 금액 입력" />
+      <Button fx:id="BTN_Charge" layoutX="642.0" layoutY="562.0" mnemonicParsing="false" onAction="#btnCharge" text="충전" />
+      <SplitPane fx:id="SplitPane_TableBelow" layoutX="150.0" layoutY="547.0" orientation="VERTICAL" prefHeight="9.0" prefWidth="534.0" />
+      <ImageView fx:id="ImageView_MainTitle" fitHeight="185.0" fitWidth="342.0" layoutX="24.0" layoutY="24.0" onMouseClicked="#ImageViewClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/CR_title_final.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_StoreSearch" fitHeight="33.0" fitWidth="39.0" layoutX="657.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/storecon.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="TextField_StoreSearch" layoutX="690.0" layoutY="67.0" prefHeight="25.0" prefWidth="138.0" promptText="매장 검색" />
+      <Button fx:id="BTN_StoreSearch" layoutX="828.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="12.0">
+         <graphic>
+            <ImageView fx:id="ImageView_Lens" fitHeight="23.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/search.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label fx:id="Label_Logout" layoutX="432.0" layoutY="72.0" text="로그아웃">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_CustomerService" layoutX="508.0" layoutY="72.0" text="고객지원">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="Label_AboutUs" layoutX="587.0" layoutY="72.0" text="About Us">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator fx:id="Separator_first" layoutX="497.0" layoutY="73.0" orientation="VERTICAL" prefHeight="15.0" prefWidth="3.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <ColorInput height="15.0" paint="#525252" width="2.0" />
+         </effect>
+      </Separator>
+      <Separator fx:id="Separator_second" layoutX="573.0" layoutY="73.0" orientation="VERTICAL" prefHeight="15.0" prefWidth="3.0">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <effect>
+            <ColorInput height="15.0" paint="#525252" width="2.0" />
+         </effect>
+      </Separator>
+      <ImageView fx:id="ImageView_Gift_heading" fitHeight="25.0" fitWidth="80.0" layoutX="446.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/gift_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Review_heading" fitHeight="25.0" fitWidth="80.0" layoutX="546.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/review_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Store_heading" fitHeight="25.0" fitWidth="80.0" layoutX="774.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/storemgmt_heading1.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="40.0" fitWidth="126.0" layoutX="637.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/mypage_heading2.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImageView_Order_heading" fitHeight="25.0" fitWidth="80.0" layoutX="346.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/order_heading1.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="Label_HaveBean" alignment="CENTER" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="56.0" text="보유 원두" />
+      <Label fx:id="Label_BeanAmount" alignment="CENTER" layoutX="361.0" layoutY="256.0" prefHeight="33.0" prefWidth="101.0" />
+      <Label fx:id="Label_ChargeList" alignment="CENTER" layoutX="50.0" layoutY="234.0" prefHeight="52.0" prefWidth="248.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="원두 충전 내역">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
