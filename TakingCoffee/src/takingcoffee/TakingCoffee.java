@@ -12,30 +12,27 @@ import static takingcoffee.TakingCoffee.Manager;
  *
  * @author DaBin
  */
-
-
 public class TakingCoffee extends Application {
-    
-    
-    
+
     public static Stage parentWindow;
     public static boolean IsConsumer = false;
     public static boolean IsManager = false;
-    
+
     public static Consumer Consumer;
     public static Manager Manager;
-    
+
     public static Cafe SelectedCafe; // 주문시 선택된 카페 정보
-    
-    
+
+    public static ReviewInfo ReviewInfo;
+
     public static OrderInfo Consumer_OrderInfo;
-    
+
     @Override
     public void start(Stage stage) throws Exception {
         parentWindow = stage;
 
         Parent root = FXMLLoader.load(getClass().getResource("Main.fxml"));
-       
+
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
@@ -48,5 +45,5 @@ public class TakingCoffee extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
