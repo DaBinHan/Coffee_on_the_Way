@@ -48,9 +48,9 @@ public class My_MenuController implements Initializable {
     @FXML
     private Button BTN_Add;
     @FXML
-    private Button BTN_Change;
-    @FXML
     private Button BTN_Delete;
+    @FXML
+    private Button BTN_Modify;
     @FXML
     private SplitPane SplitPane_TableBelow;
     @FXML
@@ -159,7 +159,8 @@ public class My_MenuController implements Initializable {
     public String myopt;
 
     @FXML
-    public void btnChange(ActionEvent event) throws Exception {
+    private void btnModify(ActionEvent event) throws Exception {
+
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
         mycafename = MyMenuInfo.getCafename();
         mymenuname = MyMenuInfo.getMenuname();
@@ -175,9 +176,9 @@ public class My_MenuController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 400, 205));
         stage.show();
-        
     }
 
+    
     @FXML
     public void btnDeleteClick(ActionEvent event) {
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();

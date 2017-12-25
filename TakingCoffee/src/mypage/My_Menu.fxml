@@ -29,7 +29,6 @@
     
     
     <Button fx:id="BTN_Add" layoutX="191.0" layoutY="492.0" mnemonicParsing="false" onAction="#btnAdd" text="추가" />
-    <Button fx:id="BTN_Change" layoutX="595.0" layoutY="562.0" mnemonicParsing="false" onAction="#btnChange" text="수정" />
     <Button fx:id="BTN_Delete" layoutX="642.0" layoutY="562.0" mnemonicParsing="false" onAction="#btnDeleteClick" text="삭제" />
     <SplitPane fx:id="SplitPane_TableBelow" layoutX="246.0" layoutY="547.0" orientation="VERTICAL" prefHeight="11.0" prefWidth="438.0" />
     <Label fx:id="Label_MyMenuList" alignment="CENTER" layoutX="50.0" layoutY="234.0" prefHeight="52.0" prefWidth="248.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="나만의 메뉴 목록">
@@ -113,6 +112,7 @@
             <Image url="@../img/order_heading1.png" />
         </image>
     </ImageView>
+   <Button fx:id="BTN_Modify" layoutX="586.0" layoutY="562.0" mnemonicParsing="false" onAction="#btnModify" text="수정" />
     
     
     
