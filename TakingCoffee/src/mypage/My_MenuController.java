@@ -186,6 +186,8 @@ public class My_MenuController implements Initializable {
         stage.setScene(new Scene(root, 400, 205));
         stage.show();
 
+        data = FXCollections.observableArrayList();
+        initTB_MyMenuList();
     }
 
     @FXML

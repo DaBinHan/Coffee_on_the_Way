@@ -252,6 +252,16 @@ public class ChargeController implements Initializable {
             e.printStackTrace();
         }
 
+        data = FXCollections.observableArrayList();
+        initTB_ChargeList();
+        
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("Charge_Inform.fxml"));
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 400, 205));
+        stage.show();
+
         /*
         // btnCharge를 누르면 테이블 Consumer도 갱신해야 한다. (attribute BeanAmount가 있기 때문)
         String sql2 = "UPDATE consumer SET BeanAmount = ? where consumer_id = ?";

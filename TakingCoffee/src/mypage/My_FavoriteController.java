@@ -251,12 +251,6 @@ public class My_FavoriteController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } else if (result.get() == ButtonType.CANCEL) {
-                Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
-                subAlert.setTitle("안내");
-                subAlert.setHeaderText("삭제 철회");
-                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
-                Optional<ButtonType> rs = subAlert.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
