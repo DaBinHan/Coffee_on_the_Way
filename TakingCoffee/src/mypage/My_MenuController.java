@@ -5,7 +5,7 @@
  */
 package mypage;
 
-import Classobj.*;
+import ClassObj.MyMenuInfo;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,22 +32,33 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import takingcoffee.TakingCoffee;
+import takingcoffee.*;
 import takingcoffee.util.ConnectionUtil;
 
 /**
  * FXML Controller class
  *
- * @author Leejinnyeong
+ * @author DaBin
  */
 public class My_MenuController implements Initializable {
 
-    // My_Menu.fxml에 들어가면 '나만의 메뉴 목록'(TB_MyMenuList)을 조회할 수 있다.
-    // 나만의 메뉴를 추가하고 싶다면 추가 버튼을 눌러 '카페', '메뉴', '재료의 양'을 입력하면 된다. 추후 구현 예정이다.
-    // 나만의 메뉴를 수정하고 싶다면 수정 버튼을 눌러 '카페', '메뉴', '재료의 양'을 수정하면 된다. 추후 구현 예정이다.
-    // 나만의 메뉴를 삭제하고 싶다면 '나만의 메뉴 목록'에서 해당 매장을 선택한 후 삭제 버튼을 누르면 된다.
+    @FXML
+    private TableView<MyMenuInfo> TB_MyMenuList;
+    @FXML
+    private TableColumn<MyMenuInfo, String> TB_CafeName;
+    @FXML
+    private TableColumn<MyMenuInfo, String> TB_MenuName;
+    @FXML
+    private TableColumn<MyMenuInfo, String> TB_MaterialQuantity;
+    @FXML
+    private Button BTN_Add;
+    @FXML
+    private Button BTN_Change;
+    @FXML
+    private Button BTN_Delete;
+    @FXML
+    private SplitPane SplitPane_TableBelow;
     @FXML
     private ImageView ImageView_MainTitle;
     @FXML
@@ -78,33 +89,14 @@ public class My_MenuController implements Initializable {
     private ImageView ImageView_Mypage_heading;
     @FXML
     private ImageView ImageView_Order_heading;
-
-    @FXML
-    private Label Label_MyMenuList;
-    @FXML
-    private TableView<MyMenuInfo> TB_MyMenuList;
-    @FXML
-    private TableColumn<MyMenuInfo, String> TB_CafeName;
-    @FXML
-    private TableColumn<MyMenuInfo, String> TB_MenuName;
-    @FXML
-    private TableColumn<MyMenuInfo, String> TB_MaterialQuantity;
-
-    @FXML
-    private SplitPane SplitPane_TableBelow;
     @FXML
     private TextField TextField_InputMyCafe;
     @FXML
     private TextField TextField_InputMyMenu;
     @FXML
     private TextField TextField_InputMyQuantity;
-
     @FXML
-    private Button BTN_Delete;
-    @FXML
-    private Button BTN_Add;
-    @FXML
-    private Button BTN_Change;
+    private Label Label_MyMenuList;
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -112,20 +104,113 @@ public class My_MenuController implements Initializable {
 
     private ObservableList<MyMenuInfo> data = FXCollections.observableArrayList();
 
-    // ** observable list를 새로 추가해서 btnAdd, btnChange, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
-    private ObservableList<MyMenuInfo> data2 = FXCollections.observableArrayList();
-
     public My_MenuController() {
         connection = ConnectionUtil.connectdb();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         initTB_MyMenuList();
     }
 
-    // ** observable list를 새로 추가해서 btnAdd, btnChange, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+    @FXML
+    private void btnAdd(ActionEvent event) {
+        String mycafe = TextField_InputMyCafe.getText().toString(); // text를 입력받아 string으로 전환
+        String mymenu = TextField_InputMyMenu.getText().toString(); // text를 입력받아 string으로 전환
+        String myquantity = TextField_InputMyQuantity.getText().toString(); // text를 입력받아 string으로 전환
+
+        String sql1 = "SELECT * FROM cafe WHERE cafe_name = ?"; // sql문 하드코딩
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql1);
+            preparedStatement.setString(1, mycafe);
+            resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                infoBox("제휴되지 않은 매장입니다!", null, null);
+            } else {
+                String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
+                preparedStatement = null;
+                resultSet = null;
+                preparedStatement = connection.prepareStatement(sql2);
+                preparedStatement.setString(1, mycafe);
+                preparedStatement.setString(2, mymenu);
+                resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
+                    preparedStatement = null;
+                    resultSet = null;
+                    preparedStatement = connection.prepareStatement(sql3);
+                    preparedStatement.setString(1, TakingCoffee.Consumer.getId());
+                    preparedStatement.setString(2, mycafe);
+                    preparedStatement.setString(3, mymenu);
+                    preparedStatement.setString(4, myquantity);
+                    preparedStatement.executeUpdate();
+                    infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
+                } else {
+                    infoBox("카페에 없는 메뉴입니다.", null, null);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+        data = FXCollections.observableArrayList();
+        initTB_MyMenuList();
+    }
+
+    public String mycafename;
+    public String mymenuname;
+    public String myopt;
+
+    // ** btnChange누르면 새 창이 뜨는데, 새 창에서 수정 버튼을 누르면 새 창이 사라지고 원래 창만 남도록
+    // ** 원래 창의 수정버튼이 아니라 새 창의 수정버튼을 눌렀을 때 리스트가 리뉴얼되도록!
+    @FXML
+    private void btnChange(ActionEvent event) throws Exception {
+        MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
+        mycafename = MyMenuInfo.getCafename();
+        mymenuname = MyMenuInfo.getMenuname();
+        myopt = MyMenuInfo.getOption();
+
+        TakingCoffee.SelectedCafe.setCafename(mycafename);
+        TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
+        TakingCoffee.SelectedCafe.Menu.setOp(myopt);
+        
+        
+        //여기 자꾸 에러나는데 fxml 파일을 다시 만들든가 해야지
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("My_Menu_Change.fxml"));
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 400, 205));
+        stage.show();
+
+    }
+
+    @FXML
+    private void btnDeleteClick(ActionEvent event) {
+        MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
+        mycafename = MyMenuInfo.getCafename();
+        mymenuname = MyMenuInfo.getMenuname();
+        myopt = MyMenuInfo.getOption();
+        confirmBox(mycafename, mymenuname, myopt);
+
+        // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+        data = FXCollections.observableArrayList();
+        initTB_MyMenuList();
+    }
+
+    @FXML
+    private void ImageViewClicked(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("My_Page.fxml"));
+
+        Stage mainStage;
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1);
+    }
+
     private void initTB_MyMenuList() {
 
         String sql = "SELECT * FROM mymenu WHERE consumer_id = ?"; // sql문 하드코딩
@@ -160,104 +245,6 @@ public class My_MenuController implements Initializable {
         }
     }
 
-    /*
-    public static class MyMenuInfo {
-
-        private SimpleStringProperty cafename;
-        private SimpleStringProperty menuname;
-        private SimpleStringProperty option;
-
-        public MyMenuInfo(String cafename, String menuname, String option) {
-            this.cafename = new SimpleStringProperty(cafename);
-            this.menuname = new SimpleStringProperty(menuname);
-            this.option = new SimpleStringProperty(option);
-        }
-
-        public String getCafename() {
-            return cafename.get();
-        }
-
-        public String getMenuname() {
-            return menuname.get();
-        }
-
-        public String getOption() {
-            return option.get();
-        }
-
-        /*
-        public void setCafename(String cafename) {
-            this.cafename = new SimpleStringProperty(cafename);
-        }
-        
-        public void setMenuname(String menuname) {
-            this.menuname = new SimpleStringProperty(menuname);
-        }
-        
-        public void setOption(String option) {
-            this.option = new SimpleStringProperty(option);
-        }
-         
-    }
-    */
-    
-    @FXML
-    private void ImageViewClicked(MouseEvent event) throws Exception {
-        Parent window1;
-        window1 = FXMLLoader.load(getClass().getResource("My_Page.fxml"));
-
-        Stage mainStage;
-        mainStage = TakingCoffee.parentWindow;
-        mainStage.getScene().setRoot(window1);
-    }
-
-    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
-    @FXML
-    private void btnAdd(ActionEvent event) {
-
-        String mycafe = TextField_InputMyCafe.getText().toString(); // text를 입력받아 string으로 전환
-        String mymenu = TextField_InputMyMenu.getText().toString(); // text를 입력받아 string으로 전환
-        String myquantity = TextField_InputMyQuantity.getText().toString(); // text를 입력받아 string으로 전환
-        
-        String sql1 = "SELECT * FROM cafe WHERE cafe_name = ?"; // sql문 하드코딩
-
-        try {
-            
-            preparedStatement = connection.prepareStatement(sql1);
-            preparedStatement.setString(1, mycafe);
-            resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()){
-                infoBox("제휴되지 않은 매장입니다!", null, null);
-            }
-            else{
-                String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
-                preparedStatement=null;
-                resultSet=null;
-                preparedStatement = connection.prepareStatement(sql2);
-                preparedStatement.setString(1, mycafe);
-                preparedStatement.setString(2, mymenu);
-                resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
-                    preparedStatement=null;
-                    resultSet=null;
-                    preparedStatement = connection.prepareStatement(sql3);
-                    preparedStatement.setString(1, TakingCoffee.Consumer.getId());
-                    preparedStatement.setString(2, mycafe);
-                    preparedStatement.setString(3, mymenu);
-                    preparedStatement.setString(4, myquantity);
-                    preparedStatement.executeUpdate();
-                    infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
-                }
-                else{
-                    infoBox("카페에 없는 메뉴입니다.", null, null);
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
         alert.setTitle(titleBar);
@@ -265,44 +252,8 @@ public class My_MenuController implements Initializable {
         alert.setContentText(infoMessage);
         alert.showAndWait();
     }
-    
-    public String mycafename;
-    public String mymenuname;
-    public String myopt;
-        
 
-    // ** btnChange누르면 새 창이 뜨는데, 새 창에서 수정 버튼을 누르면 새 창이 사라지고 원래 창만 남도록
-    // ** 원래 창의 수정버튼이 아니라 새 창의 수정버튼을 눌렀을 때 리스트가 리뉴얼되도록!
-    @FXML
-    public void btnChange(ActionEvent event) throws Exception {        
-        MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
-        mycafename=MyMenuInfo.getCafename();
-        mymenuname=MyMenuInfo.getMenuname();
-        myopt=MyMenuInfo.getOption();
-        
-        TakingCoffee.SelectedCafe.setCafename(mycafename);
-        TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
-        TakingCoffee.SelectedCafe.Menu.setOp(myopt);
-        
-        Parent root;
-        root = FXMLLoader.load(getClass().getResource("My_Menu_Change.fxml"));
-
-        Stage stage = new Stage(); 
-        stage.setScene(new Scene(root, 400, 205));
-        stage.show();
-    }
-
-    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
-    @FXML
-    public void btnDeleteClick(ActionEvent event) {
-        MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
-        mycafename=MyMenuInfo.getCafename();
-        mymenuname=MyMenuInfo.getMenuname();
-        myopt=MyMenuInfo.getOption();
-        confirmBox(mycafename, mymenuname, myopt);
-    }
-    
-     public void confirmBox(String mycafename, String mymenuname, String myopt) { // 알림창
+    public void confirmBox(String mycafename, String mymenuname, String myopt) { // 알림창
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("안내");
@@ -310,7 +261,7 @@ public class My_MenuController implements Initializable {
             alert.setContentText("나만의 메뉴 목록에서 삭제하시겠습니까?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) { // 확인을 누를 경우
-                try{ 
+                try {
                     String sql4 = "DELETE FROM mymenu where cafe_name = ? and menu_name = ? and op = ?";
                     // sql문 하드코딩, atatement에선 안되고 prepared statement에서만 가능
                     preparedStatement = connection.prepareStatement(sql4);//db와 연결하고 sql을 실행
@@ -323,17 +274,16 @@ public class My_MenuController implements Initializable {
                 }
                 //initTB_FavoriteList(); //테이블 갱신
                 infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
+            } else if (result.get() == ButtonType.CANCEL) {
+                Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
+                subAlert.setTitle("안내");
+                subAlert.setHeaderText("삭제 철회");
+                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
+                Optional<ButtonType> rs = subAlert.showAndWait();
             }
-            else if(result.get() == ButtonType.CANCEL)
-                {
-                    Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
-                    subAlert.setTitle("안내");
-                    subAlert.setHeaderText("삭제 철회");
-                    subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
-                    Optional<ButtonType> rs = subAlert.showAndWait();
-                }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

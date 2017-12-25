@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gift;
 
 import java.net.URL;
@@ -29,8 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-import takingcoffee.TakingCoffee;
-import takingcoffee.util.ConnectionUtil;
+import takingcoffee.*;
 
 /**
  * FXML Controller class
@@ -91,7 +85,7 @@ public class ChooseMenuController implements Initializable {
     private ObservableList<Menu> data = FXCollections.observableArrayList();
     
     public ChooseMenuController() {
-        connection = ConnectionUtil.connectdb();
+        connection = takingcoffee.util.ConnectionUtil.connectdb();
     }
     
     @Override
@@ -113,7 +107,7 @@ public class ChooseMenuController implements Initializable {
         try {
 
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, TakingCoffee.cafename);
+            preparedStatement.setString(1, TakingCoffee.GiftCafe.getCafename());
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -170,8 +164,8 @@ public class ChooseMenuController implements Initializable {
             if (result.get() == ButtonType.OK) {
                 try {
                     //확인을 누르면 메뉴와 가격을 메인에 저장한다.
-                    TakingCoffee.menuname = MenuName;
-                    TakingCoffee.price = Price;
+                    TakingCoffee.GiftCafe.Menu.setMenuName(MenuName);
+                    TakingCoffee.GiftCafe.Menu.setPrice(Price);
      
 
                     // 그리고 step3로 넘어간다.

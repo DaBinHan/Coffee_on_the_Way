@@ -21,11 +21,18 @@ public class TakingCoffee extends Application {
     public static Consumer Consumer;
     public static Manager Manager;
 
+    //주문하기
     public static Cafe SelectedCafe; // 주문시 선택된 카페 정보
-
-    public static ReviewInfo ReviewInfo;
-
     public static OrderInfo Consumer_OrderInfo;
+    
+    //선물하기
+    public static Cafe GiftCafe;
+    public static String receiverId;
+
+    //리뷰하기
+    public static ReviewInfo ReviewInfo;
+    
+   
 
     @Override
     public void start(Stage stage) throws Exception {

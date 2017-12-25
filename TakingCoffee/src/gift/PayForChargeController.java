@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gift;
 
 import gift.PayForChargeController.CoffeeBean;
@@ -109,8 +104,11 @@ public class PayForChargeController implements Initializable {
 
     @FXML
     private void btnSelect2(ActionEvent event) {
-        int retainedCB = Integer.parseInt(TakingCoffee.BeanAmount);
-        int priceofCB = Integer.parseInt(TakingCoffee.price);
+        //int retainedCB = Integer.parseInt(TakingCoffee.BeanAmount);
+        int retainedCB = Integer.parseInt(TakingCoffee.Consumer.getBeanAmount());
+        
+        //int priceofCB = Integer.parseInt(TakingCoffee.price);
+        int priceofCB = Integer.parseInt(TakingCoffee.GiftCafe.Menu.getPrice());
         
         if ((retainedCB - priceofCB) < 0){
             infoBox("보유 원두가 부족합니다.", null);
@@ -121,8 +119,11 @@ public class PayForChargeController implements Initializable {
     }
     
     private void init_TableView_CoffeeBean(){
-        String retainedCB = TakingCoffee.BeanAmount;
-        String priceofCB = TakingCoffee.price;
+        
+        //String retainedCB = TakingCoffee.BeanAmount;
+        String retainedCB = TakingCoffee.Consumer.getBeanAmount();
+        //String priceofCB = TakingCoffee.price;
+        String priceofCB = TakingCoffee.GiftCafe.Menu.getPrice();
 
         data.add(new CoffeeBean(retainedCB, priceofCB));
                 
@@ -173,7 +174,10 @@ public class PayForChargeController implements Initializable {
                     
                     String RemainedAmount = String.valueOf(retainedCB-priceofCB);
                     preparedStatement.setString(1, RemainedAmount);
-                    preparedStatement.setString(2, TakingCoffee.id);
+                    
+                    //preparedStatement.setString(2, TakingCoffee.id);
+                    preparedStatement.setString(2, TakingCoffee.Consumer.getId());
+                    
                     preparedStatement.executeUpdate();
                     
                     long time = System.currentTimeMillis();
@@ -183,10 +187,15 @@ public class PayForChargeController implements Initializable {
                     String sql2 = "INSERT INTO gifticon (gift_date, sender_id, receiver_id, cafe_name, menu_name) VALUES (?, ?, ?, ?, ?)";
                     preparedStatement = connection.prepareStatement(sql2);
                     preparedStatement.setString(1, str);
-                    preparedStatement.setString(2, TakingCoffee.id);
+                    //preparedStatement.setString(2, TakingCoffee.id);
+                    preparedStatement.setString(2, TakingCoffee.Consumer.getId());
+                    
                     preparedStatement.setString(3, TakingCoffee.receiverId);
-                    preparedStatement.setString(4, TakingCoffee.cafename);
-                    preparedStatement.setString(5, TakingCoffee.menuname);
+                    //preparedStatement.setString(4, TakingCoffee.cafename);
+                    preparedStatement.setString(4, TakingCoffee.GiftCafe.getCafename());
+                    
+                    //preparedStatement.setString(5, TakingCoffee.menuname);
+                    preparedStatement.setString(5, TakingCoffee.GiftCafe.getCafename());
                     preparedStatement.executeUpdate();
                     
                     Parent window1;

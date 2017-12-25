@@ -1,6 +1,6 @@
 package mypage;
 
-import Classobj.*;
+import ClassObj.*;
 import takingcoffee.util.ConnectionUtil;
 import java.net.URL;
 import java.sql.Connection;
@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -92,9 +91,6 @@ public class My_FavoriteController implements Initializable {
 
     private ObservableList<FavoriteCafe> data = FXCollections.observableArrayList();
 
-    // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
-    private ObservableList<FavoriteCafe> data2 = FXCollections.observableArrayList();
-
     //controller 생상자에는 db와 연결하려는 문장을 적어줘야 한다.
     // 언제 db가 필요할 지 모르니깐 항상 써주자.
     public My_FavoriteController() {
@@ -108,25 +104,25 @@ public class My_FavoriteController implements Initializable {
 
     // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     private void initTB_FavoriteList() {
-        
+
         String sql = "SELECT * FROM favorite_cafe WHERE consumer_id = ?"; // sql문 하드코딩
         // table 이름과 column 이름이 맞는지 확인할 것
         // table 이름 : consumer , column 이름 : consumer_id와 password
         // ? 는 우리가 preparedstatement라는 객체를 사용하기 때문에 사용 가능함
-        
+
         try {
             preparedStatement = connection.prepareStatement(sql);
             // connection. 는 connection으로 db에 걸어준다는 의미다.
             preparedStatement.setString(1, TakingCoffee.Consumer.getId());
             // 1번 물음표에는 회원의 id를 넣어라
             resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
                 // 우리가 저장했던 viewcafename 객체를 data(옵져버블리스트) 에 저장한다.
                 String CafeName = resultSet.getString("cafe_name");
-                String Id=resultSet.getString("f_id");
+                String Id = resultSet.getString("f_id");
                 data.add(new FavoriteCafe(Id, CafeName));
-                
+
                 TB_FavoriteName.setCellValueFactory(new PropertyValueFactory<>("CafeName"));
                 // CafeName을 cafename으로 수정하면 테이블뷰에 뿌려지지 않고 있다...
 
@@ -152,8 +148,7 @@ public class My_FavoriteController implements Initializable {
             return cafename.get();
         }
     }
-    */
-    
+     */
     @FXML
     private void ImageViewClicked(MouseEvent event) throws Exception {
         Parent window1;
@@ -163,7 +158,7 @@ public class My_FavoriteController implements Initializable {
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-    
+
     // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
     private void btnInputAdd(ActionEvent event) {
@@ -173,28 +168,26 @@ public class My_FavoriteController implements Initializable {
         String sql1 = "SELECT * FROM cafe WHERE cafe_name = ?"; // sql문 하드코딩
 
         try {
-            
+
             preparedStatement = connection.prepareStatement(sql1);
             preparedStatement.setString(1, favoritecafename);
             resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()){
+            if (!resultSet.next()) {
                 infoBox("제휴되지 않은 매장입니다!", null, null);
-            }
-            else{
+            } else {
                 String sql2 = "SELECT * FROM favorite_cafe WHERE consumer_id =? and cafe_name = ?"; // sql문 하드코딩
-                preparedStatement=null;
-                resultSet=null;
+                preparedStatement = null;
+                resultSet = null;
                 preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setString(1, TakingCoffee.Consumer.getId());
                 preparedStatement.setString(2, favoritecafename);
                 resultSet = preparedStatement.executeQuery();
                 if (resultSet.next()) {
                     infoBox("이미 자주 가는 매장 목록에 등록된 카페입니다.", null, null);
-                }
-                else{
+                } else {
                     String sql3 = "INSERT INTO favorite_cafe (consumer_id, cafe_name) values(?, ?)";
-                    preparedStatement=null;
-                    resultSet=null;
+                    preparedStatement = null;
+                    resultSet = null;
                     preparedStatement = connection.prepareStatement(sql3);
                     preparedStatement.setString(1, TakingCoffee.Consumer.getId());
                     preparedStatement.setString(2, favoritecafename);
@@ -204,7 +197,12 @@ public class My_FavoriteController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }        
+        }
+
+        // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+        data = FXCollections.observableArrayList(); // 일단 data의 기존 값들을 비운다.
+        initTB_FavoriteList(); // 다시 초기화
+
     }
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
@@ -222,24 +220,20 @@ public class My_FavoriteController implements Initializable {
         alert.setContentText(infoMessage);
         alert.showAndWait();
     }
-    
-    /*
-    @FXML
-    private void tpChanged(Event event)     {
-        initTB_FavoriteList();
-    }
-     */
-    
-    // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+
     @FXML
     public void btnDeleteClick(ActionEvent event) {
-        
+
         FavoriteCafe FavoriteCafe = TB_FavoriteList.getSelectionModel().getSelectedItem();
-        String favoritecafeid=FavoriteCafe.getId();
-        int a=Integer.parseInt(favoritecafeid);
+        String favoritecafeid = FavoriteCafe.getId();
+        int a = Integer.parseInt(favoritecafeid);
         confirmBox(a);
+
+        // ** observable list를 새로 추가해서 btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
+        data = FXCollections.observableArrayList(); // 일단 data의 기존 값들을 비운다.
+        initTB_FavoriteList(); // 다시 초기화
     }
-    
+
     public void confirmBox(int a) { // 알림창
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -259,16 +253,14 @@ public class My_FavoriteController implements Initializable {
                 }
                 //initTB_FavoriteList(); //테이블 갱신
                 infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
+            } else if (result.get() == ButtonType.CANCEL) {
+                Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
+                subAlert.setTitle("안내");
+                subAlert.setHeaderText("삭제 철회");
+                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
+                Optional<ButtonType> rs = subAlert.showAndWait();
             }
-            else if(result.get() == ButtonType.CANCEL)
-                {
-                    Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
-                    subAlert.setTitle("안내");
-                    subAlert.setHeaderText("삭제 철회");
-                    subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
-                    Optional<ButtonType> rs = subAlert.showAndWait();
-                }
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -1,11 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mypage;
 
-import Classobj.*;
+import ClassObj.MyMenuInfo;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,12 +27,6 @@ import takingcoffee.util.ConnectionUtil;
  */
 public class My_Menu_ChangeController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    
-    @FXML
-    private Label Label_Explain;
     @FXML
     private TextField TextField_MyMenuOptionChange;
     
@@ -49,6 +38,8 @@ public class My_Menu_ChangeController implements Initializable {
     ResultSet resultSet = null;
 
     private ObservableList<MyMenuInfo> data = FXCollections.observableArrayList();
+    @FXML
+    private Label Label_OptionChoice;
     
     public My_Menu_ChangeController() {
         connection = ConnectionUtil.connectdb();

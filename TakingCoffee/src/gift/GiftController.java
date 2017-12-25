@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gift;
 
 import ClassObj.Consumer;
@@ -108,8 +103,10 @@ public class GiftController implements Initializable {
             } else {
                 String UserName = resultSet.getString("name");
                 
-                TakingCoffee.Consumer.setId(resultSet.getString("consumer_id"));
-
+                
+                //TakingCoffee.Consumer.setId(resultSet.getString("consumer_id"));
+                //뜬금없이 사용자 아이디를 왜 바꿈?
+                
                 CheckBox("선물할 회원이 맞습니까?", null, UserName);
                 
                 TakingCoffee.receiverId = id;

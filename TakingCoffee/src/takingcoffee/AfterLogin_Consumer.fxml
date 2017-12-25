@@ -79,7 +79,7 @@
             <Image url="@../img/storemgmt_heading1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="25.0" fitWidth="100.0" layoutX="646.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="25.0" fitWidth="100.0" layoutX="646.0" layoutY="155.0" onMouseClicked="#Label_Mypage_Clicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/mypage_heading1.png" />
          </image>

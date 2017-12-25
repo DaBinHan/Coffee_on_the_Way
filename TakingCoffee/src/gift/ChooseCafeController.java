@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gift;
 
 import java.io.IOException;
@@ -106,7 +101,7 @@ public class ChooseCafeController implements Initializable {
             if (!resultSet.next()) {
                 infoBox("제휴되지 않은 매장입니다.", null);
             } else {
-                TakingCoffee.cafename = cafename;
+                TakingCoffee.GiftCafe.setCafename(cafename);
                 
                 Parent window2;
                 window2 = FXMLLoader.load(getClass().getResource("ChooseMenu.fxml"));
