@@ -83,8 +83,6 @@ public class Consumer {
         this.BeanAmount = BeanAmount;
     }
     
-    
-    
-    
+   
   
 }

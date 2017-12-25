@@ -5,7 +5,7 @@
  */
 package mypage;
 
-import Classobj.*;
+import Classobj.ChargeInfo;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,8 +32,8 @@ import takingcoffee.TakingCoffee;
 import takingcoffee.util.ConnectionUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import javafx.scene.control.TextArea;
 import static mypage.My_FavoriteController.infoBox;
+import static takingcoffee.TakingCoffee.Consumer;
 
 /**
  * FXML Controller class

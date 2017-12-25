@@ -71,4 +71,14 @@ public class AfterLogin_ConsumerController implements Initializable {
         mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
     }
 
+    @FXML
+    private void Label_Mypage_Clicked(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
 }
