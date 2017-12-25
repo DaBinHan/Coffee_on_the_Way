@@ -168,13 +168,15 @@ public class My_MenuController implements Initializable {
         TakingCoffee.SelectedCafe.setCafename(mycafename);
         TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
         TakingCoffee.SelectedCafe.Menu.setOp(myopt);
-
+        
+        /*
         Parent root;
         root = FXMLLoader.load(getClass().getResource("My_Menu_Change.fxml"));
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 400, 205));
         stage.show();
+        */
     }
 
     @FXML
