@@ -127,7 +127,7 @@ public class My_MenuController implements Initializable {
             preparedStatement.setString(1, mycafe);
             resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
-                infoBox("제휴되지 않은 매장입니다!", null, null);
+                infoBox("제휴되지 않은 매장입니다.", null, null);
             } else {
                 String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
                 preparedStatement = null;
@@ -272,13 +272,11 @@ public class My_MenuController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //initTB_FavoriteList(); //테이블 갱신
-                infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
             } else if (result.get() == ButtonType.CANCEL) {
                 Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
                 subAlert.setTitle("안내");
                 subAlert.setHeaderText("삭제 철회");
-                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
+                subAlert.setContentText("나만의 메뉴 삭제가 철회되었습니다.");
                 Optional<ButtonType> rs = subAlert.showAndWait();
             }
         } catch (Exception e) {

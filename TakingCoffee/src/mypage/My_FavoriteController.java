@@ -173,7 +173,7 @@ public class My_FavoriteController implements Initializable {
             preparedStatement.setString(1, favoritecafename);
             resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
-                infoBox("제휴되지 않은 매장입니다!", null, null);
+                infoBox("제휴되지 않은 매장입니다.", null, null);
             } else {
                 String sql2 = "SELECT * FROM favorite_cafe WHERE consumer_id =? and cafe_name = ?"; // sql문 하드코딩
                 preparedStatement = null;
@@ -251,8 +251,6 @@ public class My_FavoriteController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                //initTB_FavoriteList(); //테이블 갱신
-                infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
             } else if (result.get() == ButtonType.CANCEL) {
                 Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
                 subAlert.setTitle("안내");

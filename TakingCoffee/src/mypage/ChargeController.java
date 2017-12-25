@@ -225,14 +225,15 @@ public class ChargeController implements Initializable {
         
         String chargeinput = TextField_ChargeInput.getText().toString(); // text를 입력받아 string으로 전환
         String BeanAmount=TakingCoffee.Consumer.getBeanAmount();
-        Integer amountafter=Integer.parseInt(chargeinput)+Integer.parseInt(BeanAmount);
+        //Integer amountafter=Integer.parseInt(chargeinput)+Integer.parseInt(BeanAmount);
         
         long time = System.currentTimeMillis();
         SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String str = dayTime.format(new Date(time));
         
         // btnCharge를 누르면 먼저 테이블 charge를 갱신한다.
-        String sql1="INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, bean_after, deposit_check) values (?, ?, ?, ?, ?, ?)";
+        //String sql1="INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, bean_after, deposit_check) values (?, ?, ?, ?, ?, ?)";
+        String sql1="INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, deposit_check) values (?, ?, ?, ?, ?)";
         
         try {
             preparedStatement=null;
@@ -242,14 +243,16 @@ public class ChargeController implements Initializable {
             preparedStatement.setString(2, str);
             preparedStatement.setString(3, chargeinput);
             preparedStatement.setString(4, TakingCoffee.Consumer.getBeanAmount());
-            preparedStatement.setString(5, String.valueOf(amountafter));
-            preparedStatement.setString(6, String.valueOf(0));
+            //preparedStatement.setString(5, String.valueOf(amountafter));
+            //preparedStatement.setString(6, String.valueOf(0));
+            preparedStatement.setString(5, String.valueOf(0));
             preparedStatement.executeUpdate();
-            infoBox("원두 " + chargeinput + "개가 충전되었습니다.", null, null);
+            //infoBox("원두 " + chargeinput + "개가 충전되었습니다.", null, null);
             } catch (Exception e) {
             e.printStackTrace();
         }
 
+        /*
         // btnCharge를 누르면 테이블 Consumer도 갱신해야 한다. (attribute BeanAmount가 있기 때문)
         String sql2 = "UPDATE consumer SET BeanAmount = ? where consumer_id = ?";
          try {
@@ -262,11 +265,12 @@ public class ChargeController implements Initializable {
            } catch (Exception e) {
             e.printStackTrace();
         }
-         
+        */
+
         // run 되는 동안 Consumer 클래스 안의 BeanAmount 갱신
         // Consumer 클래스의 하드코딩을 없애고 로그인한 정보를 넣는다면 없어도 되는 코드다.
-        TakingCoffee.Consumer.setBeanAmount(String.valueOf(amountafter));
+        //TakingCoffee.Consumer.setBeanAmount(String.valueOf(amountafter));
 
-        Label_BeanAmount.setText(String.valueOf(amountafter));
+        //Label_BeanAmount.setText(String.valueOf(amountafter));
     }
 }
