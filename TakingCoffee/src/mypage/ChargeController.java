@@ -27,8 +27,7 @@ import takingcoffee.TakingCoffee;
 import takingcoffee.util.ConnectionUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import static mypage.My_FavoriteController.infoBox;
-import static takingcoffee.TakingCoffee.Consumer;
+import javafx.scene.Scene;
 
 /**
  * FXML Controller class
@@ -221,7 +220,7 @@ public class ChargeController implements Initializable {
     }
     
     @FXML
-    private void btnCharge(ActionEvent event){
+    private void btnCharge(ActionEvent event) throws Exception{
         
         String chargeinput = TextField_ChargeInput.getText().toString(); // text를 입력받아 string으로 전환
         String BeanAmount=TakingCoffee.Consumer.getBeanAmount();

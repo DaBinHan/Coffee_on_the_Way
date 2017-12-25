@@ -173,9 +173,9 @@ public class My_MenuController implements Initializable {
         mymenuname = MyMenuInfo.getMenuname();
         myopt = MyMenuInfo.getOption();
 
-        TakingCoffee.SelectedCafe.setCafename(mycafename);
-        TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
-        TakingCoffee.SelectedCafe.Menu.setOp(myopt);
+        takingcoffee.TakingCoffee.SelectedCafe.setCafename(mycafename);
+        takingcoffee.TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
+        takingcoffee.TakingCoffee.SelectedCafe.Menu.setOp(myopt);
         
         
         //여기 자꾸 에러나는데 fxml 파일을 다시 만들든가 해야지
