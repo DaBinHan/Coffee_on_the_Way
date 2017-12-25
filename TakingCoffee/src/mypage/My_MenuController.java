@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mypage;
 
 import ClassObj.MyMenuInfo;
@@ -31,10 +26,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import takingcoffee.*;
 import takingcoffee.util.ConnectionUtil;
+import takingcoffee.*;
 
 /**
  * FXML Controller class
@@ -59,6 +53,8 @@ public class My_MenuController implements Initializable {
     private Button BTN_Delete;
     @FXML
     private SplitPane SplitPane_TableBelow;
+    @FXML
+    private Label Label_MyMenuList;
     @FXML
     private ImageView ImageView_MainTitle;
     @FXML
@@ -95,8 +91,6 @@ public class My_MenuController implements Initializable {
     private TextField TextField_InputMyMenu;
     @FXML
     private TextField TextField_InputMyQuantity;
-    @FXML
-    private Label Label_MyMenuList;
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -115,6 +109,7 @@ public class My_MenuController implements Initializable {
 
     @FXML
     private void btnAdd(ActionEvent event) {
+
         String mycafe = TextField_InputMyCafe.getText().toString(); // text를 입력받아 string으로 전환
         String mymenu = TextField_InputMyMenu.getText().toString(); // text를 입력받아 string으로 전환
         String myquantity = TextField_InputMyQuantity.getText().toString(); // text를 입력받아 string으로 전환
@@ -127,7 +122,7 @@ public class My_MenuController implements Initializable {
             preparedStatement.setString(1, mycafe);
             resultSet = preparedStatement.executeQuery();
             if (!resultSet.next()) {
-                infoBox("제휴되지 않은 매장입니다.", null, null);
+                infoBox("제휴되지 않은 매장입니다!", null, null);
             } else {
                 String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
                 preparedStatement = null;
@@ -155,7 +150,6 @@ public class My_MenuController implements Initializable {
             e.printStackTrace();
         }
 
-        // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
         data = FXCollections.observableArrayList();
         initTB_MyMenuList();
     }
@@ -164,53 +158,35 @@ public class My_MenuController implements Initializable {
     public String mymenuname;
     public String myopt;
 
-    // ** btnChange누르면 새 창이 뜨는데, 새 창에서 수정 버튼을 누르면 새 창이 사라지고 원래 창만 남도록
-    // ** 원래 창의 수정버튼이 아니라 새 창의 수정버튼을 눌렀을 때 리스트가 리뉴얼되도록!
     @FXML
-    private void btnChange(ActionEvent event) throws Exception {
+    public void btnChange(ActionEvent event) throws Exception {
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
         mycafename = MyMenuInfo.getCafename();
         mymenuname = MyMenuInfo.getMenuname();
         myopt = MyMenuInfo.getOption();
 
-        takingcoffee.TakingCoffee.SelectedCafe.setCafename(mycafename);
-        takingcoffee.TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
-        takingcoffee.TakingCoffee.SelectedCafe.Menu.setOp(myopt);
-        
-        
-        //여기 자꾸 에러나는데 fxml 파일을 다시 만들든가 해야지
+        TakingCoffee.SelectedCafe.setCafename(mycafename);
+        TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
+        TakingCoffee.SelectedCafe.Menu.setOp(myopt);
+
         Parent root;
         root = FXMLLoader.load(getClass().getResource("My_Menu_Change.fxml"));
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 400, 205));
         stage.show();
-
-        data = FXCollections.observableArrayList();
-        initTB_MyMenuList();
     }
 
     @FXML
-    private void btnDeleteClick(ActionEvent event) {
+    public void btnDeleteClick(ActionEvent event) {
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
         mycafename = MyMenuInfo.getCafename();
         mymenuname = MyMenuInfo.getMenuname();
         myopt = MyMenuInfo.getOption();
         confirmBox(mycafename, mymenuname, myopt);
 
-        // ** btnAdd, btnDelete를 눌렀을 때 리스트가 리뉴얼되도록!
         data = FXCollections.observableArrayList();
         initTB_MyMenuList();
-    }
-
-    @FXML
-    private void ImageViewClicked(MouseEvent event) throws Exception {
-        Parent window1;
-        window1 = FXMLLoader.load(getClass().getResource("My_Page.fxml"));
-
-        Stage mainStage;
-        mainStage = TakingCoffee.parentWindow;
-        mainStage.getScene().setRoot(window1);
     }
 
     private void initTB_MyMenuList() {
@@ -274,11 +250,13 @@ public class My_MenuController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                //initTB_FavoriteList(); //테이블 갱신
+                infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
             } else if (result.get() == ButtonType.CANCEL) {
                 Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
                 subAlert.setTitle("안내");
                 subAlert.setHeaderText("삭제 철회");
-                subAlert.setContentText("나만의 메뉴 삭제가 철회되었습니다.");
+                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
                 Optional<ButtonType> rs = subAlert.showAndWait();
             }
         } catch (Exception e) {
