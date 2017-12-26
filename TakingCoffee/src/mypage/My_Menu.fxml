@@ -15,17 +15,17 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mypage.My_MenuController">
-    <TableView fx:id="TB_MyMenuList" layoutX="245.0" layoutY="303.0" prefHeight="245.0" prefWidth="439.0">
+    <TableView fx:id="TB_MyMenuList" layoutX="245.0" layoutY="303.0" prefHeight="245.0" prefWidth="497.0">
         <columns>
             <TableColumn fx:id="TB_CafeName" prefWidth="125.33331298828125" text="카페" />
             <TableColumn fx:id="TB_MenuName" prefWidth="131.66668701171875" text="메뉴" />
-            <TableColumn fx:id="TB_MaterialQuantity" minWidth="0.0" prefWidth="180.0" text="재료의 양" />
+            <TableColumn fx:id="TB_MaterialQuantity" minWidth="0.0" prefWidth="238.0" text="선택 사항" />
         </columns>
     </TableView>
     
     <TextField fx:id="TextField_InputMyCafe" layoutX="63.0" layoutY="357.0" prefHeight="39.0" prefWidth="169.0" promptText="카페" />
     <TextField fx:id="TextField_InputMyMenu" layoutX="63.0" layoutY="402.0" prefHeight="39.0" prefWidth="169.0" promptText="메뉴" />
-    <TextField fx:id="TextField_InputMyQuantity" layoutX="63.0" layoutY="447.0" prefHeight="39.0" prefWidth="169.0" promptText="재료의 양" />
+    <TextField fx:id="TextField_InputMyQuantity" layoutX="63.0" layoutY="447.0" prefHeight="39.0" prefWidth="169.0" promptText="선택 사항" />
     
     
     <Button fx:id="BTN_Add" layoutX="191.0" layoutY="492.0" mnemonicParsing="false" onAction="#btnAdd" text="추가" />
