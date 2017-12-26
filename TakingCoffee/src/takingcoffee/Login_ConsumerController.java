@@ -75,7 +75,7 @@ public class Login_ConsumerController implements Initializable {
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
-    
+
     //LAST_INSERT_ID()로 OrderID 받아오기 위함 
     Statement st;
     ResultSet resultSet = null;
@@ -106,10 +106,13 @@ public class Login_ConsumerController implements Initializable {
                 String uni = resultSet.getString("uni_name");
                 String Email = resultSet.getString("Email");
                 String BeanAmount = resultSet.getString("BeanAmount");
-                
+
                 //Consumer 객체에 정보 저장
-                TakingCoffee.Consumer = new Consumer (id, pw, UserName, phonenumber, uni, Email, BeanAmount);
- 
+                TakingCoffee.Consumer = new Consumer(id, pw, UserName, phonenumber, uni, Email, BeanAmount);
+
+                if (IsBlackList(id)) {
+                    TakingCoffee.IsBlackList = true;
+                }
 
                 WelcomeBox("안녕하세요!.", "환영 합니다.", null, UserName);
 
@@ -125,6 +128,32 @@ public class Login_ConsumerController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean IsBlackList(String id) {
+        String sql = "SELECT * FROM orderinfo WHERE consumer_id = ? and menu_complete = 1 and menu_receipt = 2";
+        int cnt = 0;
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                cnt++;
+            }
+
+            if (cnt >= 3) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창

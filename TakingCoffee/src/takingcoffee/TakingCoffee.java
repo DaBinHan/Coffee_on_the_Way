@@ -19,6 +19,7 @@ public class TakingCoffee extends Application {
     public static boolean IsManager = false;
 
     public static Consumer Consumer;
+    public static boolean IsBlackList = false;
     public static Manager Manager;
 
     //주문하기

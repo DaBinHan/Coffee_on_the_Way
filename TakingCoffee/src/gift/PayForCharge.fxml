@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gift.PayForChargeController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="860.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gift.PayForChargeController">
    <children>
       <ImageView fx:id="ImageView_MainTitle" fitHeight="185.0" fitWidth="342.0" layoutX="24.0" layoutY="24.0" onMouseClicked="#imageViewClicked" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -91,12 +91,12 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Button fx:id="BTN_next_PFC" layoutX="410.0" layoutY="510.0" mnemonicParsing="false" onAction="#btnSelect2" text="결제하기">
+      <Button fx:id="BTN_next_PFC" layoutX="410.0" layoutY="510.0" mnemonicParsing="false" onAction="#Push_BTN_next_PFC" text="결제하기">
          <font>
             <Font size="20.0" />
          </font>
       </Button>
-      <Button fx:id="BTN_ChargeCoffee" layoutX="562.0" layoutY="349.0" mnemonicParsing="false" text="원두 충전하기">
+      <Button fx:id="BTN_ChargeCoffee" layoutX="562.0" layoutY="349.0" mnemonicParsing="false" onAction="#Push_BTN_ChargeCoffee" text="원두 충전하기">
          <font>
             <Font size="20.0" />
          </font>

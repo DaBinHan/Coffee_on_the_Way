@@ -87,7 +87,9 @@ public class My_OrderController implements Initializable {
     ResultSet resultSet = null;
 
     private ObservableList<OrderInfo> data = FXCollections.observableArrayList();
-
+    int flag = 0; // 미수령 경고 한번 출력하려는 flag
+    
+    
     public My_OrderController() {
         connection = ConnectionUtil.connectdb();
     }
@@ -131,8 +133,9 @@ public class My_OrderController implements Initializable {
                     MenuReceipt = "미수령";
                 }
 
-                if (MenuReceipt.compareTo("미수령") == 0) {
+                if (MenuReceipt.compareTo("미수령") == 0 && flag == 0) {
                     infoBox("미수령 이력이 있습니다.\n미수령 3회 이상 시 이용이 제한됩니다.", "안내", null);
+                    flag = 1;
                 }
 
                 data.add(new OrderInfo(ArrTime, CafeName, MenuName, MenuReceipt));
