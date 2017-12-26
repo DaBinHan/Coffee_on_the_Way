@@ -9,7 +9,7 @@
 <AnchorPane id="AnchorPane" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mypage.My_Menu_ChangeController">
    <children>
       <TextField fx:id="TextField_MyMenuOptionChange" layoutY="45.0" prefHeight="132.0" prefWidth="410.0" />
-      <Button fx:id="BTN_Change" layoutY="177.0" mnemonicParsing="false" onAction="#btnChangeClick" prefHeight="34.0" prefWidth="410.0" text="수정" />
+      <Button fx:id="BTN_Change" layoutY="177.0" mnemonicParsing="false" onAction="#Click_btnModify" prefHeight="34.0" prefWidth="410.0" text="수정" />
       <Label fx:id="Label_OptionChoice" layoutY="7.0" prefHeight="28.0" prefWidth="291.0" text="재료의 양을 입력해주세요.">
          <font>
             <Font name="HYGothic-Extra" size="24.0" />

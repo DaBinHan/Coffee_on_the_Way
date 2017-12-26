@@ -117,33 +117,39 @@ public class My_MenuController implements Initializable {
         String sql1 = "SELECT * FROM cafe WHERE cafe_name = ?"; // sql문 하드코딩
 
         try {
-
-            preparedStatement = connection.prepareStatement(sql1);
-            preparedStatement.setString(1, mycafe);
-            resultSet = preparedStatement.executeQuery();
-            if (!resultSet.next()) {
-                infoBox("제휴되지 않은 매장입니다!", null, null);
+            if (!IsOptionable(mycafe, mymenu)) {
+                infoBox("해당 메뉴는 선택사항을 지정할 수 없습니다.", null, null);
+            } else if (IsExist(mycafe, mymenu, myquantity)) {
+                infoBox("해당 사항은 이미 등록되어있습니다.", null, null);
             } else {
-                String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
-                preparedStatement = null;
-                resultSet = null;
-                preparedStatement = connection.prepareStatement(sql2);
+
+                preparedStatement = connection.prepareStatement(sql1);
                 preparedStatement.setString(1, mycafe);
-                preparedStatement.setString(2, mymenu);
                 resultSet = preparedStatement.executeQuery();
-                if (resultSet.next()) {
-                    String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
+                if (!resultSet.next()) {
+                    infoBox("제휴되지 않은 매장입니다!", null, null);
+                } else {
+                    String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
                     preparedStatement = null;
                     resultSet = null;
-                    preparedStatement = connection.prepareStatement(sql3);
-                    preparedStatement.setString(1, TakingCoffee.Consumer.getId());
-                    preparedStatement.setString(2, mycafe);
-                    preparedStatement.setString(3, mymenu);
-                    preparedStatement.setString(4, myquantity);
-                    preparedStatement.executeUpdate();
-                    infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
-                } else {
-                    infoBox("카페에 없는 메뉴입니다.", null, null);
+                    preparedStatement = connection.prepareStatement(sql2);
+                    preparedStatement.setString(1, mycafe);
+                    preparedStatement.setString(2, mymenu);
+                    resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
+                        preparedStatement = null;
+                        resultSet = null;
+                        preparedStatement = connection.prepareStatement(sql3);
+                        preparedStatement.setString(1, TakingCoffee.Consumer.getId());
+                        preparedStatement.setString(2, mycafe);
+                        preparedStatement.setString(3, mymenu);
+                        preparedStatement.setString(4, myquantity);
+                        preparedStatement.executeUpdate();
+                        infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
+                    } else {
+                        infoBox("카페에 없는 메뉴입니다.", null, null);
+                    }
                 }
             }
         } catch (Exception e) {
@@ -154,33 +160,38 @@ public class My_MenuController implements Initializable {
         initTB_MyMenuList();
     }
 
-    public String mycafename;
-    public String mymenuname;
-    public String myopt;
-
     @FXML
     private void btnModify(ActionEvent event) throws Exception {
+
+        String mycafename;
+        String mymenuname;
+        String myopt;
 
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
         mycafename = MyMenuInfo.getCafename();
         mymenuname = MyMenuInfo.getMenuname();
         myopt = MyMenuInfo.getOption();
 
-        TakingCoffee.SelectedCafe.setCafename(mycafename);
-        TakingCoffee.SelectedCafe.Menu.setMenuName(mymenuname);
-        TakingCoffee.SelectedCafe.Menu.setOp(myopt);
-        
+        takingcoffee.TakingCoffee.MyCafe.setCafename(mycafename);
+        takingcoffee.TakingCoffee.MyCafe.Menu.setMenuName(mymenuname);
+        takingcoffee.TakingCoffee.MyCafe.Menu.setOp(myopt);
+
         Parent root;
         root = FXMLLoader.load(getClass().getResource("My_Menu_Change.fxml"));
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 400, 205));
         stage.show();
+
     }
 
-    
     @FXML
     public void btnDeleteClick(ActionEvent event) {
+
+        String mycafename;
+        String mymenuname;
+        String myopt;
+
         MyMenuInfo MyMenuInfo = TB_MyMenuList.getSelectionModel().getSelectedItem();
         mycafename = MyMenuInfo.getCafename();
         mymenuname = MyMenuInfo.getMenuname();
@@ -253,17 +264,69 @@ public class My_MenuController implements Initializable {
                     e.printStackTrace();
                 }
                 //initTB_FavoriteList(); //테이블 갱신
-                infoBox("자주 가는 매장 목록에서 삭제되었습니다.", null, null);
+                infoBox("나만의 메뉴 목록에서 삭제되었습니다.", null, null);
             } else if (result.get() == ButtonType.CANCEL) {
                 Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
                 subAlert.setTitle("안내");
                 subAlert.setHeaderText("삭제 철회");
-                subAlert.setContentText("자주 가는 매장 삭제가 철회되었습니다.");
+                subAlert.setContentText("삭제가 철회되었습니다.");
                 Optional<ButtonType> rs = subAlert.showAndWait();
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean IsOptionable(String CafeName, String MenuName) throws Exception {
+        String sql = "Select op from menu where cafe_name = ? and menu_name = ?";
+
+        try {
+
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, CafeName);
+            preparedStatement.setString(2, MenuName);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+
+                if (resultSet.getString("op") == null) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    private boolean IsExist(String CafeName, String MenuName, String Option) throws Exception {
+        String sql = "Select * from mymenu where consumer_id = ? and cafe_name = ? and menu_name = ? and op = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, TakingCoffee.Consumer.getId());
+            preparedStatement.setString(2, CafeName);
+            preparedStatement.setString(3, MenuName);
+            preparedStatement.setString(4, Option);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 }

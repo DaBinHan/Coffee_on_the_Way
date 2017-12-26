@@ -12,8 +12,12 @@ public class Cafe {
     private String phonenumber;
     private String managerid;
     private int postpayavail;
-    
+
     public Menu Menu = new Menu(this.cafename);
+
+    public Cafe(String cafename) {
+        this.cafename = cafename;
+    }
 
     public Cafe(String cafename, String uniname, String addr, String phonenumber, String managerid, int postpayavail) {
         this.cafename = cafename;
@@ -78,6 +82,5 @@ public class Cafe {
     public void setPostpayavail(int postpayavail) {
         this.postpayavail = postpayavail;
     }
-    
 
 }
