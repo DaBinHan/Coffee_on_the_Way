@@ -29,7 +29,7 @@ public class TakingCoffee extends Application {
     public static Cafe MyCafe = new Cafe(null); // 생성자로 객체 생성을 해줘야 접근 가능
     
     //선물하기
-    public static Cafe GiftCafe;
+    public static Cafe GiftCafe = new Cafe(null); // 생성자로 객체 생성을 해줘야 접근 가능
     public static String receiverId;
 
     //리뷰하기
