@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -98,6 +99,8 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     private Button BTN_Cafe_Uni;
     @FXML
     private Button BTN_MyGifticon;
+    @FXML
+    private Button BTN_ChooseInMyMenu;
 
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -276,6 +279,16 @@ public class Order_Step1_CafeChoiceController implements Initializable {
         }
     }
 
+    @FXML
+    private void Push_BTN_ChooseInMyMenu(ActionEvent event) throws Exception{
+        Parent root;
+        root = FXMLLoader.load(getClass().getResource("Order_SubStep1_1_ChooseInMyMenu.fxml"));
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root, 497, 384));
+        stage.show();
+    }
+
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
         alert.setTitle(titleBar);
@@ -345,4 +358,5 @@ public class Order_Step1_CafeChoiceController implements Initializable {
             this.Menu = Menu;
         }
     }
+
 }

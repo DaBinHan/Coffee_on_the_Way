@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="367.0" prefWidth="497.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="order.Order_SubStep1_1_ChooseInMyMenuController">
+   <children>
+      <TableView fx:id="TB_MyMenuList" prefHeight="360.0" prefWidth="497.0">
+         <columns>
+            <TableColumn fx:id="TB_CafeName" prefWidth="125.33331298828125" text="카페" />
+            <TableColumn fx:id="TB_MenuName" prefWidth="131.66668701171875" text="메뉴" />
+            <TableColumn fx:id="TB_MaterialQuantity" minWidth="0.0" prefWidth="238.0" text="선택 사항" />
+         </columns>
+      </TableView>
+      <Button fx:id="BTN_Choose" layoutY="360.0" mnemonicParsing="false" onAction="#Push_BTN_Choose" prefHeight="23.0" prefWidth="497.0" text="선택" />
+   </children>
+</AnchorPane>
