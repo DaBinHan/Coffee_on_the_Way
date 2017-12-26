@@ -1,6 +1,5 @@
 package order;
 
-import ClassObj.OrderInfo;
 import java.net.URL;
 import java.util.Calendar;
 import java.util.Optional;
@@ -87,6 +86,7 @@ public class Order_Step4_ArrTimeController implements Initializable {
         ComboBox_AMPM.setItems(AMPM);
         ComboBox_Hour.setItems(Hour);
         ComboBox_Min.setItems(Min);
+
     }
 
     //ConfirmBox 만들어야함
@@ -127,9 +127,19 @@ public class Order_Step4_ArrTimeController implements Initializable {
         // "yyyy-MM-dd hh:mm:ss"
         String ArrTime = Year + "-" + Month + "-" + Date + " " + Hour + ":" + Min + ":" + "00";
 
-        confirmBox(ArrTime);
+        
+        //** 시간을 비교하는 부분 **//
+        //현재 시각과 분
+        int cur_hour = cal.get(Calendar.HOUR);
+        int cur_min = cal.get(Calendar.MINUTE);
+        if (cur_hour > Integer.parseInt(Hour)) {
 
-        //System.out.println(ArrTime); Test용 
+            infoBox("현재 시각 이후의 시간을 입력해주세요.", "안내", null);
+        } else if (cur_hour == Integer.parseInt(Hour) && cur_min >= Integer.parseInt(Min)) {
+            infoBox("현재 시각 이후의 시간을 입력해주세요.", "안내", null);
+        } else {
+            confirmBox(ArrTime);
+        }
     }
 
     public void confirmBox(String ArrTime) { // 알림창
@@ -166,6 +176,14 @@ public class Order_Step4_ArrTimeController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
     }
 
 }

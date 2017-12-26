@@ -87,7 +87,16 @@ public class Order_Step3_ConfirmPriceController implements Initializable {
 
     @FXML
     private void Push_BTN_Prepayment(ActionEvent event) {
-        confirmBox("선불");
+
+        int BeanAmount = Integer.parseInt(TakingCoffee.Consumer.getBeanAmount());
+        int Price = Integer.parseInt(TakingCoffee.SelectedCafe.Menu.getPrice());
+
+        if (BeanAmount < Price) {
+            infoBox("원두가 부족합니다.\n마이페이지에서 충전해주세요.", "안내", null);
+        } else {
+            confirmBox("선불");
+        }
+
     }
 
     private void Set_Price_And_Menu() {
@@ -111,12 +120,13 @@ public class Order_Step3_ConfirmPriceController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("안내");
             alert.setHeaderText("");
-            
-            alert.setContentText(PaymentType+"결제 하시겠어요?");
+
+            alert.setContentText(PaymentType + "결제 하시겠어요?");
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
+
                 try {
-                   
+
                     //public OrderInfo(int orderid, String consumerid, String Cafename, String menuname, String amount, String arrTime, String paymentType, int menucomplete, int menureceipt, String option)
                     int orderid = 0; //DBMS에서 AutoIncrement되므로 아무 값이나 넣는다. 
                     String consumerid = TakingCoffee.Consumer.getId();
@@ -127,7 +137,7 @@ public class Order_Step3_ConfirmPriceController implements Initializable {
                     int menucomplete = 0; // 미완성이므로
                     int menureceipt = 0; // 미수령이므로
                     String option = TakingCoffee.SelectedCafe.Menu.getOp();
-                    
+
                     TakingCoffee.Consumer_OrderInfo = new OrderInfo(orderid, consumerid, Cafename, menuname, amount, arrTime, PaymentType, menucomplete, menureceipt, option);
 
                     // 그리고 step4로 넘어간다.
@@ -151,6 +161,14 @@ public class Order_Step3_ConfirmPriceController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
     }
 
 }

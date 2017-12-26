@@ -72,11 +72,7 @@ public class Order_SubStep2_1_OptionChoiceController implements Initializable {
                     e.printStackTrace();
                 }
             } else if (result.get() == ButtonType.CANCEL) {
-                Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
-                subAlert.setTitle("안내");
-                subAlert.setHeaderText("취소 메시지");
-                subAlert.setContentText("옵션 작성이 취소되었습니다.");
-                Optional<ButtonType> rs = subAlert.showAndWait();
+              
             }
         } catch (Exception e) {
             e.printStackTrace();

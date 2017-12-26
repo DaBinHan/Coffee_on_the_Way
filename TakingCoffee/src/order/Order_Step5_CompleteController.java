@@ -154,9 +154,8 @@ public class Order_Step5_CompleteController implements Initializable {
 
     private void Make_Gifticon_ToBe_Used() {
         int gift_id = TakingCoffee.Gifticon.getGiftId();
-        
+
         //System.out.print(gift_id);
-        
         String sql = "UPDATE gifticon SET used = 1 WHERE gift_id = ?";
         try {
             preparedStatement = connection.prepareStatement(sql);
@@ -166,6 +165,28 @@ public class Order_Step5_CompleteController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void Reduce_BeanAmount() {
+        int BeanAmount = Integer.parseInt(TakingCoffee.Consumer.getBeanAmount());
+        int Price = Integer.parseInt(TakingCoffee.SelectedCafe.Menu.getPrice());
+
+        BeanAmount -= Price;
+        
+        String Bean = Integer.toString(BeanAmount);
+        String consumer_id = TakingCoffee.Consumer.getId();
+
+        String sql = "UPDATE consumer SET BeanAmount = ? WHERE consumer_id = ?";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, Bean);
+            preparedStatement.setString(2, consumer_id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void confirmBox() { // 알림창
@@ -185,6 +206,9 @@ public class Order_Step5_CompleteController implements Initializable {
 
                     if (TakingCoffee.Consumer_OrderInfo.getPaymentType().compareTo("기프티콘") == 0) {
                         Make_Gifticon_ToBe_Used();
+                    }
+                    else if(TakingCoffee.Consumer_OrderInfo.getPaymentType().compareTo("선불") == 0) {
+                        Reduce_BeanAmount();
                     }
 
                     Parent window1;
