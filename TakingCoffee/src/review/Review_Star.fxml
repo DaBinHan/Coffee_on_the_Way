@@ -89,38 +89,38 @@
             <Image url="@../img/order_heading1.png" />
          </image>
       </ImageView>
-      <Label fx:id="Label_cafename" layoutX="97.0" layoutY="271.0" prefHeight="36.0" prefWidth="153.0" text="&gt;카페이름 :">
+      <Label fx:id="Label_cafename" layoutX="245.0" layoutY="300.0" prefHeight="36.0" prefWidth="115.0" text="카페이름 :">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
       <Button fx:id="BTN_next" layoutX="603.0" layoutY="549.0" mnemonicParsing="false" onAction="#btn_next" text="다음" />
-      <Label fx:id="Label_menuname" layoutX="97.0" layoutY="307.0" prefHeight="36.0" prefWidth="153.0" text="&gt;메뉴이름 :">
+      <Label fx:id="Label_menuname" layoutX="245.0" layoutY="336.0" prefHeight="36.0" prefWidth="115.0" text="메뉴이름 :">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Label_menuname1" layoutX="97.0" layoutY="343.0" prefHeight="36.0" prefWidth="153.0" text="&gt;별점       : ">
+      <Label fx:id="Label_menuname1" alignment="CENTER_RIGHT" layoutX="245.0" layoutY="372.0" prefHeight="36.0" prefWidth="118.1" text="별점 : ">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="TextField_cafename" layoutX="238.0" layoutY="271.0" prefHeight="36.0" prefWidth="181.0" />
-      <TextField fx:id="TextField_menuname" layoutX="238.0" layoutY="307.0" prefHeight="36.0" prefWidth="181.0" />
-      <TextField fx:id="TextField_star" layoutX="238.0" layoutY="343.0" prefHeight="36.0" prefWidth="181.0" promptText="0~5점" />
-      <Label layoutX="423.0" layoutY="347.0" prefHeight="28.0" prefWidth="47.0" text="점">
+      <TextField fx:id="TextField_cafename" layoutX="376.0" layoutY="300.0" prefHeight="36.0" prefWidth="181.0" />
+      <TextField fx:id="TextField_menuname" layoutX="376.0" layoutY="336.0" prefHeight="36.0" prefWidth="181.0" />
+      <TextField fx:id="TextField_star" layoutX="376.0" layoutY="372.0" prefHeight="36.0" prefWidth="181.0" promptText="0~5점" />
+      <Label layoutX="561.0" layoutY="376.0" prefHeight="28.0" prefWidth="47.0" text="점">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Label fx:id="Label_step1" layoutX="97.0" layoutY="234.0" prefHeight="28.0" prefWidth="257.0" text="STEP1. 별점 입력">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Label_step2" layoutX="460.0" layoutY="234.0" prefHeight="28.0" prefWidth="240.0" text="STEP2. 리뷰내용작성" textFill="#b5b5b5">
+      <Label fx:id="Label_step2" layoutX="459.0" layoutY="235.0" prefHeight="28.0" prefWidth="240.0" text="STEP2. 리뷰내용작성" textFill="#b5b5b5">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
    </children>

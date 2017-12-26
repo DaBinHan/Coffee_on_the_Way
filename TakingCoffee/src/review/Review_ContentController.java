@@ -81,6 +81,7 @@ public class Review_ContentController implements Initializable {
     private Label Label_cafename;
     @FXML
     private Label Label_menuname;
+    
     //디비를 사용하기 위한 3세트
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -106,9 +107,8 @@ public class Review_ContentController implements Initializable {
     private void btnClick(ActionEvent event) throws Exception {
         //화면 정보 받아오기
         int id = TakingCoffee.ReviewInfo.getReviewid();
-        String title = TextField_ReviewTitle.getText(); // text를 입력받아 string으로 전환
-        String text = TextArea_ReviewContent.getText();
-        
+        String title = TextField_ReviewTitle.getText().toString(); // text를 입력받아 string으로 전환
+        String text = TextArea_ReviewContent.getText().toString();
         //업데이트
         String sql = "UPDATE Review SET review_title= ?, review_text =? where review_id = ?";
         // sql문 하드코딩, atatement에선 안되고 prepared statement에서만 가능

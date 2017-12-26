@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -66,7 +67,7 @@ public class Review_ContentModController implements Initializable {
     @FXML
     private TextField TextField_ReviewTitle;
     @FXML
-    private TextField TextField_ReviewContent;
+    private TextArea TextArea_ReviewContent;
     @FXML
     private Button BTN_modify;
     @FXML
@@ -78,13 +79,14 @@ public class Review_ContentModController implements Initializable {
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
 
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (TakingCoffee.ReviewInfo != null) {
             Label_cafename.setText(TakingCoffee.ReviewInfo.getCafename());
             Label_menuname.setText(TakingCoffee.ReviewInfo.getMenuname());
             TextField_ReviewTitle.setText(TakingCoffee.ReviewInfo.getTitle());
-            TextField_ReviewContent.setText(TakingCoffee.ReviewInfo.getReviewtext());
+            TextArea_ReviewContent.setText(TakingCoffee.ReviewInfo.getReviewtext());
         }
     }
 
@@ -97,9 +99,9 @@ public class Review_ContentModController implements Initializable {
         //정보를 수정하고 저장한다
         int reviewid = TakingCoffee.ReviewInfo.getReviewid();
         String title = null;
-        title = TextField_ReviewTitle.getText();
+        title = TextField_ReviewTitle.getText().toString();
         String text = null;
-        text = TextField_ReviewContent.getText();
+        text = TextArea_ReviewContent.getText().toString();
         try {//정보수정
             String sql = "UPDATE Review SET review_title= ?, review_text =? where review_id = ?";
             // sql문 하드코딩, atatement에선 안되고 prepared statement에서만 가능
