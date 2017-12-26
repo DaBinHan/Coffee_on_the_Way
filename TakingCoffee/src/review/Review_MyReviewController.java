@@ -155,7 +155,7 @@ public class Review_MyReviewController implements Initializable {
         String reviewid = SubReview.getReviewid();
         int a = Integer.parseInt(reviewid);
         confirmBox(a);
-        
+
     }
 
     @FXML
@@ -180,7 +180,7 @@ public class Review_MyReviewController implements Initializable {
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-
+    
     public void InfoBox(String cafename, String menuname, String star, String title, String text) { // 알림창
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -218,7 +218,9 @@ public class Review_MyReviewController implements Initializable {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                initMyReviewTable();//테이블 갱신*/
+                //테이블 갱신*/
+                data = FXCollections.observableArrayList();
+                initMyReviewTable();
             }
         } catch (Exception e) {
             e.printStackTrace();

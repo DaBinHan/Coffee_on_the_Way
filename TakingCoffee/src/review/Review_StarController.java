@@ -109,10 +109,15 @@ public class Review_StarController implements Initializable {
         int reviewid = 0;
 
         try {
+
             if (cafename.length() == 0) {
                 InfoBox("카페이름을 넣어주십시오", "안내", null);
             } else if (menuname.length() == 0) {
                 InfoBox("메뉴이름을 넣어주십시오", "안내", null);
+            } else if (!IsRightCafe(cafename)) {
+                InfoBox("제휴되지 않은 매장입니다.", "안내", null);
+            } else if (!IsRightMenu(cafename, menuname)) {
+                InfoBox("해당 매장에 없는 메뉴입니다.", "안내", null);
             } else if (star.length() == 0) {
                 InfoBox("별점을 넣어주십시오", "안내", null);
             } else if (star.length() != 0) {
@@ -131,10 +136,9 @@ public class Review_StarController implements Initializable {
                         preparedStatement.setString(4, star);
                         preparedStatement.setString(5, str);
                         preparedStatement.executeUpdate();
-                        
 
                     } catch (SQLException e) {
-                        
+
                     }
                     try {//다음 페이지로 정보를 넘기기 위해 방금 추가한 행의 리뷰아이디를 가져와 저장
                         String sql2 = "SELECT * FROM Review WHERE consumer_id = ? and review_date = ?";//
@@ -165,7 +169,7 @@ public class Review_StarController implements Initializable {
             }
 
         } catch (Exception e) {
-            InfoBox("별점에 숫자를 넣어주십시오", "안내", null);
+            InfoBox("별점에 1~5사이의 정수를 넣어주십시오", "안내", null);
         }
 
     }
@@ -176,5 +180,52 @@ public class Review_StarController implements Initializable {
         alert.setHeaderText(headerMessage);
         alert.setContentText(infoMessage);
         alert.showAndWait();
+    }
+
+    public boolean IsRightCafe(String CafeName) {
+
+        String sql = "Select * from cafe where cafe_name = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);//db와 연결하고 sql을 실행
+            preparedStatement.setString(1, CafeName);//첫번째 물음표
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean IsRightMenu(String CafeName, String MenuName) {
+
+        String sql = "Select * from menu where cafe_name = ? and menu_name = ?";
+
+        try {
+            preparedStatement = connection.prepareStatement(sql);//db와 연결하고 sql을 실행
+            preparedStatement.setString(1, CafeName);
+            preparedStatement.setString(2, MenuName);
+
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

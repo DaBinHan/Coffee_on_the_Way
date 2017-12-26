@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorInput?>
 <?import javafx.scene.image.Image?>
@@ -89,48 +90,43 @@
             <Image url="@../img/order_heading1.png" />
          </image>
       </ImageView>
-      <Label fx:id="Label_ReviewTitle" layoutX="107.0" layoutY="318.0" text="&gt;제목       : ">
+      <Label fx:id="Label_ReviewTitle" layoutX="117.0" layoutY="318.0" prefHeight="22.0" prefWidth="40.0" text="TITLE" textFill="#943c02">
          <font>
-            <Font size="18.0" />
+            <Font name="HYHeadLine-Medium" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="TextField_ReviewTitle" layoutX="214.0" layoutY="317.0" prefHeight="23.0" prefWidth="535.0" />
-      <TextField fx:id="TextField_ReviewContent" layoutX="112.0" layoutY="347.0" prefHeight="216.0" prefWidth="637.0" />
+      <TextField fx:id="TextField_ReviewTitle" layoutX="160.0" layoutY="317.0" prefHeight="23.0" prefWidth="588.0" style="-fx-border-color: #943c02;" />
       <Button fx:id="BTN_next" layoutX="773.0" layoutY="541.0" mnemonicParsing="false" onAction="#btnClick" text="다음" />
-      <Label fx:id="Label_menuname" layoutX="421.0" layoutY="272.0" prefHeight="28.0" prefWidth="216.0">
+      <Label fx:id="Label_menuname" layoutX="456.0" layoutY="275.0" prefHeight="28.0" prefWidth="216.0">
          <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label layoutX="652.0" layoutY="272.0" prefHeight="28.0" prefWidth="194.0" text="에 대한 리뷰">
-         <font>
-            <Font size="18.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
       <Label fx:id="Label_step1" layoutX="97.0" layoutY="234.0" prefHeight="28.0" prefWidth="257.0" text="STEP1. 별점 입력" textFill="#b5b5b5">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
       <Label fx:id="Label_step2" layoutX="460.0" layoutY="234.0" prefHeight="28.0" prefWidth="240.0" text="STEP2. 리뷰내용작성">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Label_cafename" layoutX="115.0" layoutY="272.0" prefHeight="28.0" prefWidth="208.0">
+      <Label fx:id="Label_cafename" layoutX="166.0" layoutY="275.0" prefHeight="28.0" prefWidth="138.0">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="97.0" layoutY="272.0" prefHeight="22.0" prefWidth="17.0" text="&gt;">
+      <Label layoutX="112.0" layoutY="277.0" prefHeight="23.0" prefWidth="63.0" text="카페 : ">
          <font>
-            <Font size="24.0" />
+            <Font name="HYHeadLine-Medium" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="330.0" layoutY="272.0" prefHeight="28.0" prefWidth="49.0" text="의">
+      <Label layoutX="401.0" layoutY="277.0" prefHeight="23.0" prefWidth="63.0" text="메뉴 : ">
          <font>
-            <Font size="18.0" />
+            <Font name="HYHeadLine-Medium" size="20.0" />
          </font>
       </Label>
+      <TextArea fx:id="TextArea_ReviewContent" layoutX="112.0" layoutY="347.0" prefHeight="216.0" prefWidth="637.0" promptText="내용을 입력하여 주세요." style="-fx-background-color: #943c02;" />
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,10 +19,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import static review.Review_ContentModController.InfoBox;
 import takingcoffee.TakingCoffee;
 import takingcoffee.util.ConnectionUtil;
 
@@ -71,7 +74,7 @@ public class Review_ContentController implements Initializable {
     @FXML
     private TextField TextField_ReviewTitle;
     @FXML
-    private TextField TextField_ReviewContent;
+    private TextArea TextArea_ReviewContent;
     @FXML
     private Button BTN_next;
     @FXML
@@ -92,6 +95,7 @@ public class Review_ContentController implements Initializable {
             Label_cafename.setText(TakingCoffee.ReviewInfo.getCafename());
             Label_menuname.setText(TakingCoffee.ReviewInfo.getMenuname());
         }
+
     }
 
     public Review_ContentController() {//생성자, db에 연결
@@ -102,8 +106,9 @@ public class Review_ContentController implements Initializable {
     private void btnClick(ActionEvent event) throws Exception {
         //화면 정보 받아오기
         int id = TakingCoffee.ReviewInfo.getReviewid();
-        String title = TextField_ReviewTitle.getText().toString(); // text를 입력받아 string으로 전환
-        String text = TextField_ReviewContent.getText().toString();
+        String title = TextField_ReviewTitle.getText(); // text를 입력받아 string으로 전환
+        String text = TextArea_ReviewContent.getText();
+        
         //업데이트
         String sql = "UPDATE Review SET review_title= ?, review_text =? where review_id = ?";
         // sql문 하드코딩, atatement에선 안되고 prepared statement에서만 가능
