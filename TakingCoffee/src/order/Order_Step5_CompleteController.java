@@ -152,6 +152,22 @@ public class Order_Step5_CompleteController implements Initializable {
         }
     }
 
+    private void Make_Gifticon_ToBe_Used() {
+        int gift_id = TakingCoffee.Gifticon.getGiftId();
+        
+        //System.out.print(gift_id);
+        
+        String sql = "UPDATE gifticon SET used = 1 WHERE gift_id = ?";
+        try {
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, gift_id);
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void confirmBox() { // 알림창
         try {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -166,6 +182,10 @@ public class Order_Step5_CompleteController implements Initializable {
 
                     Send_OrderInfo_To_DB();
                     Send_ConsumerAndOrder_To_DB();
+
+                    if (TakingCoffee.Consumer_OrderInfo.getPaymentType().compareTo("기프티콘") == 0) {
+                        Make_Gifticon_ToBe_Used();
+                    }
 
                     Parent window1;
                     window1 = FXMLLoader.load(getClass().getResource("/takingcoffee/AfterLogin_Consumer.fxml"));

@@ -1,6 +1,8 @@
 package order;
 
 import ClassObj.Cafe;
+import ClassObj.Gifticon;
+import ClassObj.OrderInfo;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +28,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import static javafx.scene.input.KeyCode.W;
 import javafx.stage.Stage;
 import takingcoffee.TakingCoffee;
 
@@ -80,11 +81,11 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     @FXML
     private TableColumn<ViewCafe, String> TableColumn_MyCafe;
     @FXML
-    private TableView<ViewCafe> TableView_MyGificon;
+    private TableView<Gifticon> TableView_MyGificon;
     @FXML
-    private TableColumn<ViewCafe, String> TableColumn_MyGificon_Cafe;
+    private TableColumn<Gifticon, String> TableColumn_MyGificon_Cafe;
     @FXML
-    private TableColumn<ViewCafe, String> TableColumn_MyGificon_Menu;
+    private TableColumn<Gifticon, String> TableColumn_MyGificon_Menu;
     @FXML
     private Label Label_MyGifticon;
     @FXML
@@ -107,7 +108,7 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     ResultSet resultSet = null;
 
     private ObservableList<ViewCafe> data = FXCollections.observableArrayList(); //TableView_MyCafe
-    private ObservableList<ViewCafe> data2 = FXCollections.observableArrayList(); //TableView_MyGificon
+    private ObservableList<Gifticon> data2 = FXCollections.observableArrayList(); //TableView_MyGificon
     private ObservableList<ViewCafe> data3 = FXCollections.observableArrayList(); //TableView_Cafe_Uni
 
     @Override
@@ -148,7 +149,7 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     private void init_TableView_MyGificon() {
         String id = TakingCoffee.Consumer.getId();
 
-        String sql = "SELECT * FROM gifticon WHERE receiver_id = ?";
+        String sql = "SELECT * FROM gifticon WHERE receiver_id = ? and used = 0"; //미사용된 기프티콘 검색
 
         try {
 
@@ -157,12 +158,16 @@ public class Order_Step1_CafeChoiceController implements Initializable {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
+                
+                int GitfId = resultSet.getInt("gift_id");
                 String Cafe_Name = resultSet.getString("cafe_name");
                 String Menu_Name = resultSet.getString("menu_name");
-
-                data2.add(new ViewCafe(Cafe_Name, Menu_Name));
+                
+                
+                
+                data2.add(new Gifticon(GitfId,TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name));
                 TableColumn_MyGificon_Cafe.setCellValueFactory(new PropertyValueFactory<>("CafeName"));
-                TableColumn_MyGificon_Menu.setCellValueFactory(new PropertyValueFactory<>("Menu"));
+                TableColumn_MyGificon_Menu.setCellValueFactory(new PropertyValueFactory<>("MenuName"));
 
                 TableView_MyGificon.setItems(data2);
             }
@@ -280,13 +285,27 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     }
 
     @FXML
-    private void Push_BTN_ChooseInMyMenu(ActionEvent event) throws Exception{
+    private void Push_BTN_ChooseInMyMenu(ActionEvent event) throws Exception {
         Parent root;
         root = FXMLLoader.load(getClass().getResource("Order_SubStep1_1_ChooseInMyMenu.fxml"));
 
         Stage stage = new Stage();
         stage.setScene(new Scene(root, 497, 384));
         stage.show();
+    }
+
+    @FXML
+    private void Push_BTN_MyGifticon(ActionEvent event) throws Exception {
+        Gifticon Gifticon = TableView_MyGificon.getSelectionModel().getSelectedItem();
+        
+        int gift_id = Gifticon.getGiftId();
+        
+        
+        
+        String CafeName = Gifticon.getCafeName();
+        String MenuName = Gifticon.getMenuName();
+        
+        confirmBox_Gifticon(gift_id, CafeName, MenuName);
     }
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
@@ -325,6 +344,61 @@ public class Order_Step1_CafeChoiceController implements Initializable {
                 subAlert.setTitle("안내");
                 subAlert.setHeaderText("취소 메시지");
                 subAlert.setContentText("카페 선택이 취소되었습니다.");
+                Optional<ButtonType> rs = subAlert.showAndWait();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void confirmBox_Gifticon(int gift_id, String Cafe_Name, String Menu_Name) { // 알림창
+        try {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("안내");
+            alert.setHeaderText("");
+            alert.setContentText("이 기프티콘을 사용하시겠습니까?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                try {
+                    //확인을 누르면 Cafe를 메인에 저장한다. String cafename, String uniname, String addr 만 저장하는 생성자로
+                    TakingCoffee.SelectedCafe = new Cafe(Cafe_Name);
+                    TakingCoffee.SelectedCafe.Menu.setMenuName(Menu_Name);
+
+                    //그리고 바로 OrderInfo를 작성한다.
+                    //public OrderInfo(int orderid, String consumerid, String Cafename, String menuname, String amount, String arrTime, String paymentType, int menucomplete, int menureceipt, String option)
+                    int orderid = 0; //DBMS에서 AutoIncrement되므로 아무 값이나 넣는다. 
+                    String consumerid = TakingCoffee.Consumer.getId();
+                    String Cafename = TakingCoffee.SelectedCafe.getCafename();
+                    String menuname = TakingCoffee.SelectedCafe.Menu.getMenuName();
+                    String amount = "1";
+                    String arrTime = null; // 나중에 setarrTime으로 Step4에서 바꿔준다.
+                    String PaymentType = "기프티콘";
+                    int menucomplete = 0; // 미완성이므로
+                    int menureceipt = 0; // 미수령이므로
+                    String option = TakingCoffee.SelectedCafe.Menu.getOp();
+                      
+                    TakingCoffee.Consumer_OrderInfo = new OrderInfo(orderid, consumerid, Cafename, menuname, amount, arrTime, PaymentType, menucomplete, menureceipt, option);
+
+                    // 추후에 기프티콘 내역 삭제를 위해 기프티콘 정보도 저장해준다.
+                    // Gifticon(int GiftId, String Receiver, String CafeName, String MenuName)
+                    TakingCoffee.Gifticon = new Gifticon(gift_id,  TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name);
+                    
+                    // 그리고 step4로 넘어간다.
+                    Parent window1;
+                    window1 = FXMLLoader.load(getClass().getResource("Order_Step4_ArrTime.fxml"));
+
+                    Stage mainStage; //Here is the magic. We get the reference to main Stage.
+                    mainStage = TakingCoffee.parentWindow;
+                    mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else if (result.get() == ButtonType.CANCEL) {
+                Alert subAlert = new Alert(Alert.AlertType.INFORMATION);
+                subAlert.setTitle("안내");
+                subAlert.setHeaderText("취소 메시지");
+                subAlert.setContentText("기프티콘 사용이 취소 되었습니다..");
                 Optional<ButtonType> rs = subAlert.showAndWait();
             }
         } catch (Exception e) {

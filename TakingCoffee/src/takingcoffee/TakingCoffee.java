@@ -24,6 +24,7 @@ public class TakingCoffee extends Application {
     //주문하기
     public static Cafe SelectedCafe; // 주문시 선택된 카페 정보 카페 선택시 객체 생성
     public static OrderInfo Consumer_OrderInfo;
+    public static Gifticon Gifticon;
     
     //마이 페이지
     public static Cafe MyCafe = new Cafe(null); // 생성자로 객체 생성을 해줘야 접근 가능
