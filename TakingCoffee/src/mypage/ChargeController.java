@@ -39,7 +39,6 @@ public class ChargeController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private ImageView ImageView_MainTitle;
     @FXML
@@ -70,12 +69,12 @@ public class ChargeController implements Initializable {
     private ImageView ImageView_Mypage_heading;
     @FXML
     private ImageView ImageView_Order_heading;
-    
+
     @FXML
     private Label Label_HaveBean;
     @FXML
     private Label Label_BeanAmount;
-    
+
     @FXML
     private Label Label_ChargeList;
     @FXML
@@ -90,78 +89,81 @@ public class ChargeController implements Initializable {
     private TextField TextField_ChargeInput;
     @FXML
     private Button BTN_Charge;
-    
+
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    
+
     private ObservableList<ChargeInfo> data = FXCollections.observableArrayList();
     private ObservableList<Consumer> data2 = FXCollections.observableArrayList();
-    
-    // ** observable list를 새로 추가해서 btnCharge를 눌렀을 때 리스트가 리뉴얼되도록!
-    private ObservableList<ChargeInfo> data3 = FXCollections.observableArrayList();
-        
+
     public ChargeController() {
         connection = ConnectionUtil.connectdb();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         init_BeanAmount();
         initTB_ChargeList();
     }
-    
-    private void init_BeanAmount(){
-       
-        String BeanAmount=TakingCoffee.Consumer.getBeanAmount();
+
+    private void init_BeanAmount() {
+
+        String BeanAmount = TakingCoffee.Consumer.getBeanAmount();
         String sql = "SELECT * FROM consumer WHERE consumer_id = ?";
-                       
+
         try {
             preparedStatement = connection.prepareStatement(sql);
             // connection. 는 connection으로 db에 걸어준다는 의미다.
             preparedStatement.setString(1, TakingCoffee.Consumer.getId());
             // 1번 물음표에는 회원의 id를 넣어라
             resultSet = preparedStatement.executeQuery();
-            
+
             if (resultSet.next()) {
                 BeanAmount = resultSet.getString("BeanAmount");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-                
-        Label_BeanAmount.setText(BeanAmount);
+
+        Label_BeanAmount.setText(BeanAmount+"원");
     }
-    
+
     // ** btnCharge를 눌렀을 때 리스트가 리뉴얼되도록!
-    private void initTB_ChargeList(){
-                
+    private void initTB_ChargeList() {
+
         String sql = "SELECT * FROM charge WHERE consumer_id = ?"; // sql문 하드코딩
         // table 이름과 column 이름이 맞는지 확인할 것
         // table 이름 : consumer , column 이름 : consumer_id와 password
         // ? 는 우리가 preparedstatement라는 객체를 사용하기 때문에 사용 가능함
-        
+
         try {
             preparedStatement = connection.prepareStatement(sql);
             // connection. 는 connection으로 db에 걸어준다는 의미다.
             preparedStatement.setString(1, TakingCoffee.Consumer.getId());
             // 1번 물음표에는 회원의 id를 넣어라
             resultSet = preparedStatement.executeQuery();
-            
+
             while (resultSet.next()) {
                 // 우리가 저장했던 viewcafename 객체를 data(옵져버블리스트) 에 저장한다.
                 String ChargeDate = resultSet.getString("charge_date");
                 String ChargeAmount = resultSet.getString("charge_amount");
                 String BeanBefore = resultSet.getString("bean_before");
                 String BeanAfter = resultSet.getString("bean_after");
-                String DepositeCheck = resultSet.getString("deposit_check");
+                String DepositeCheck;
+                if (resultSet.getInt("deposit_check") == 0) {
+                    DepositeCheck = "입금 대기";
+                } else {
+                    DepositeCheck = "입금 완료";
+                }
+
                 data.add(new ChargeInfo(ChargeDate, ChargeAmount, BeanBefore, BeanAfter, DepositeCheck));
-                
+
                 TB_ChargeDate.setCellValueFactory(new PropertyValueFactory<>("chargedate"));
                 TB_ChargeAmount.setCellValueFactory(new PropertyValueFactory<>("chargeamount"));
                 TB_DepositCheck.setCellValueFactory(new PropertyValueFactory<>("depositcheck"));
-                
+
                 TB_ChargeList.setItems(data);
                 // tableview에 data를 보여준다
             }
@@ -169,7 +171,7 @@ public class ChargeController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     /*
     public static class ChargeInfo{
         
@@ -207,36 +209,35 @@ public class ChargeController implements Initializable {
             return depositcheck.get();
         }
     }
-    */
-    
+     */
     @FXML
-    private void ImageViewClicked(MouseEvent event) throws Exception{
+    private void ImageViewClicked(MouseEvent event) throws Exception {
         Parent window1;
-        window1=FXMLLoader.load(getClass().getResource("My_Page.fxml"));
+        window1 = FXMLLoader.load(getClass().getResource("My_Page.fxml"));
 
         Stage mainStage;
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-    
+
     @FXML
-    private void btnCharge(ActionEvent event) throws Exception{
-        
+    private void btnCharge(ActionEvent event) throws Exception {
+
         String chargeinput = TextField_ChargeInput.getText().toString(); // text를 입력받아 string으로 전환
-        String BeanAmount=TakingCoffee.Consumer.getBeanAmount();
+        String BeanAmount = TakingCoffee.Consumer.getBeanAmount();
         //Integer amountafter=Integer.parseInt(chargeinput)+Integer.parseInt(BeanAmount);
-        
+
         long time = System.currentTimeMillis();
         SimpleDateFormat dayTime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         String str = dayTime.format(new Date(time));
-        
+
         // btnCharge를 누르면 먼저 테이블 charge를 갱신한다.
         //String sql1="INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, bean_after, deposit_check) values (?, ?, ?, ?, ?, ?)";
-        String sql1="INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, deposit_check) values (?, ?, ?, ?, ?)";
-        
+        String sql1 = "INSERT INTO charge (consumer_id, charge_date, charge_amount, bean_before, deposit_check) values (?, ?, ?, ?, ?)";
+
         try {
-            preparedStatement=null;
-            resultSet=null;
+            preparedStatement = null;
+            resultSet = null;
             preparedStatement = connection.prepareStatement(sql1);
             preparedStatement.setString(1, TakingCoffee.Consumer.getId());
             preparedStatement.setString(2, str);
@@ -247,13 +248,13 @@ public class ChargeController implements Initializable {
             preparedStatement.setString(5, String.valueOf(0));
             preparedStatement.executeUpdate();
             //infoBox("원두 " + chargeinput + "개가 충전되었습니다.", null, null);
-            } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         data = FXCollections.observableArrayList();
         initTB_ChargeList();
-        
+
         Parent root;
         root = FXMLLoader.load(getClass().getResource("Charge_Inform.fxml"));
 
@@ -274,12 +275,10 @@ public class ChargeController implements Initializable {
            } catch (Exception e) {
             e.printStackTrace();
         }
-        */
-
+         */
         // run 되는 동안 Consumer 클래스 안의 BeanAmount 갱신
         // Consumer 클래스의 하드코딩을 없애고 로그인한 정보를 넣는다면 없어도 되는 코드다.
         //TakingCoffee.Consumer.setBeanAmount(String.valueOf(amountafter));
-
         //Label_BeanAmount.setText(String.valueOf(amountafter));
     }
 }

@@ -102,8 +102,14 @@
             <Image url="@../img/order_heading1.png" />
          </image>
       </ImageView>
-      <Label fx:id="Label_HaveBean" alignment="CENTER" layoutX="308.0" layoutY="260.0" prefHeight="25.0" prefWidth="56.0" text="보유 원두" />
-      <Label fx:id="Label_BeanAmount" alignment="CENTER" layoutX="361.0" layoutY="256.0" prefHeight="33.0" prefWidth="101.0" />
+      <Label fx:id="Label_HaveBean" alignment="CENTER" layoutX="307.0" layoutY="253.0" prefHeight="33.0" prefWidth="138.0" text="현재 보유 원두" textFill="#943c02">
+         <font>
+            <Font name="HYHeadLine-Medium" size="19.0" />
+         </font></Label>
+      <Label fx:id="Label_BeanAmount" layoutX="447.0" layoutY="258.0" prefHeight="23.0" prefWidth="138.0" textFill="#943c02">
+         <font>
+            <Font name="HYHeadLine-Medium" size="20.0" />
+         </font></Label>
       <Label fx:id="Label_ChargeList" alignment="CENTER" layoutX="50.0" layoutY="234.0" prefHeight="52.0" prefWidth="248.0" style="-fx-border-color: #000000; -fx-background-color: #FFFFFF;" text="원두 충전 내역">
          <font>
             <Font name="System Bold" size="24.0" />

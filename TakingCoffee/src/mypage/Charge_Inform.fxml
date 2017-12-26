@@ -11,7 +11,7 @@
             <Font name="HYGothic-Extra" size="24.0" />
          </font>
       </Label>
-      <Label fx:id="Label_AccountNumber" layoutX="44.0" layoutY="60.0" prefHeight="43.0" prefWidth="347.0" text="1002-350-000000 (우리은행)">
+      <Label fx:id="Label_AccountNumber" layoutX="44.0" layoutY="60.0" prefHeight="43.0" prefWidth="356.0" text="1002-045-888578 (우리은행)">
          <font>
             <Font name="HYGothic-Extra" size="24.0" />
          </font>

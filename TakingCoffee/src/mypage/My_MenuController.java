@@ -33,7 +33,7 @@ import takingcoffee.*;
 /**
  * FXML Controller class
  *
- * @author DaBin
+ * @author Leejinnyeong
  */
 public class My_MenuController implements Initializable {
 
