@@ -189,9 +189,10 @@ public class CurrentOrderController implements Initializable {
             BCR.addCompleteButton(TB_CurrentOrder, CompleteMaking_TB_CurrentOrder);
             BCR.ReceivedButton(TB_CurrentOrder, CheckReceipt_TB_CurrentOrder);
             BCR.addOptionButton(TB_CurrentOrder, Option_TB_CurrentOrder);
+            ArrivalTime_TB_CurrentOrder.setSortType(TableColumn.SortType.ASCENDING);//도착예정시간 오름차순으로 정렬
 
             TB_CurrentOrder.setItems(data);
-
+            TB_CurrentOrder.getSortOrder().add(ArrivalTime_TB_CurrentOrder);//정렬에 필요한 메소드
         } catch (Exception e) {
             e.printStackTrace();
         }

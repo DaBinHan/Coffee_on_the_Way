@@ -71,10 +71,6 @@ public class SelectFunctionController implements Initializable {
     private Button BTN_OrderMgmt;
     @FXML
     private ImageView Img_OrderMgmt;
-    @FXML
-    private Button BTN_DiscountMenu;
-    @FXML
-    private ImageView Img_DiscountMenu;
 
     /**
      * Initializes the controller class.
@@ -128,8 +124,5 @@ public class SelectFunctionController implements Initializable {
 
     }
 
-    @FXML
-    private void DiscountMenuClicked(ActionEvent event) {
-    }
-
+  
 }

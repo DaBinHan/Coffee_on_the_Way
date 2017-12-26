@@ -117,39 +117,37 @@ public class My_MenuController implements Initializable {
         String sql1 = "SELECT * FROM cafe WHERE cafe_name = ?"; // sql문 하드코딩
 
         try {
-            if (!IsOptionable(mycafe, mymenu)) {
-                infoBox("해당 메뉴는 선택사항을 지정할 수 없습니다.", null, null);
+
+            preparedStatement = connection.prepareStatement(sql1);
+            preparedStatement.setString(1, mycafe);
+            resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                infoBox("제휴되지 않은 매장입니다!", null, null);
             } else if (IsExist(mycafe, mymenu, myquantity)) {
                 infoBox("해당 사항은 이미 등록되어있습니다.", null, null);
             } else {
-
-                preparedStatement = connection.prepareStatement(sql1);
+                String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
+                preparedStatement = null;
+                resultSet = null;
+                preparedStatement = connection.prepareStatement(sql2);
                 preparedStatement.setString(1, mycafe);
+                preparedStatement.setString(2, mymenu);
                 resultSet = preparedStatement.executeQuery();
-                if (!resultSet.next()) {
-                    infoBox("제휴되지 않은 매장입니다!", null, null);
-                } else {
-                    String sql2 = "SELECT * FROM menu WHERE cafe_name = ? and menu_name = ?"; // sql문 하드코딩
+                if (resultSet.next()) {
+                    String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
                     preparedStatement = null;
                     resultSet = null;
-                    preparedStatement = connection.prepareStatement(sql2);
-                    preparedStatement.setString(1, mycafe);
-                    preparedStatement.setString(2, mymenu);
-                    resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) {
-                        String sql3 = "INSERT INTO mymenu (consumer_id, cafe_name, menu_name, op) values (?, ?, ?, ?)";
-                        preparedStatement = null;
-                        resultSet = null;
-                        preparedStatement = connection.prepareStatement(sql3);
-                        preparedStatement.setString(1, TakingCoffee.Consumer.getId());
-                        preparedStatement.setString(2, mycafe);
-                        preparedStatement.setString(3, mymenu);
-                        preparedStatement.setString(4, myquantity);
-                        preparedStatement.executeUpdate();
-                        infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
-                    } else {
-                        infoBox("카페에 없는 메뉴입니다.", null, null);
-                    }
+                    preparedStatement = connection.prepareStatement(sql3);
+                    preparedStatement.setString(1, TakingCoffee.Consumer.getId());
+                    preparedStatement.setString(2, mycafe);
+                    preparedStatement.setString(3, mymenu);
+                    preparedStatement.setString(4, myquantity);
+                    preparedStatement.executeUpdate();
+                    infoBox("나만의 메뉴 목록에 등록되었습니다.", null, null);
+                } else if (resultSet.next() && !IsOptionable(mycafe, mymenu)) {
+                    infoBox("해당 메뉴는 선택사항을 지정할 수 없습니다.", null, null);
+                } else {
+                    infoBox("카페에 없는 메뉴입니다.", null, null);
                 }
             }
         } catch (Exception e) {

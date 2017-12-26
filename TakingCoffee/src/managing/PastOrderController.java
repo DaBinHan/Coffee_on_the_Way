@@ -81,7 +81,7 @@ public class PastOrderController implements Initializable {
     @FXML
     private TableColumn<?, ?> OrderAmount_PastOrder;
     @FXML
-    private TableColumn<?, ?> ArrivalTime_PastOrder;
+    private TableColumn< viewPastOrder, ?> ArrivalTime_PastOrder;
     @FXML
     private TableColumn<OrderInfo, String> CheckReceipt_PastOrder;
     @FXML
@@ -151,18 +151,18 @@ public class PastOrderController implements Initializable {
                 //String paymentType = resultSet.getString("paymentType");
                 String MenuReceipt = new String();
 
-                if (resultSet.getInt("menu_receipt") == 0) {
-                    MenuReceipt = "미수령";
-                } else {
+                if (resultSet.getInt("menu_receipt") == 0) {//주문이 들어와서 제작중이거나 제작완료후 수령대기중인 음료
+                    MenuReceipt = "대기중";
+                } else if (resultSet.getInt("menu_receipt") == 1) {
                     MenuReceipt = "수령";
+                } else {//menu_receipt==2 인 경우
+                    MenuReceipt = "미수령";
                 }
 
                 // String option = resultSet.getString("op");
                 data.add(new viewPastOrder(ConsumerId, MenuName, Amount, ArrTime, MenuReceipt));
-                
-            }
 
- 
+            }
 
             OrderNumber_PastOrder.setCellFactory(new PastOrderController.LineNumbersCellFactory());
             CustomerID_PastOrder.setCellValueFactory(new PropertyValueFactory<>("ConsumerId"));//" " 안에는 consumer()에 있는 이름과 같아야함
@@ -171,8 +171,9 @@ public class PastOrderController implements Initializable {
             ArrivalTime_PastOrder.setCellValueFactory(new PropertyValueFactory<>("ArrTime"));
             CheckReceipt_PastOrder.setCellValueFactory(new PropertyValueFactory<>("MenuReceipt"));
 
+            ArrivalTime_PastOrder.setSortType(TableColumn.SortType.DESCENDING);//도착예정시간 오름차순으로 정렬
             TB_PastOrder.setItems(data);
-
+            TB_PastOrder.getSortOrder().add(ArrivalTime_PastOrder);//정렬에 필요한 메소드
         } catch (Exception e) {
             e.printStackTrace();
         }

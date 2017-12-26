@@ -32,6 +32,8 @@ public class ButtonController {
 
     PreparedStatement preparedStatement2 = null;
 
+    PreparedStatement preparedStatement3 = null;
+
     public ButtonController() {
         connection = ConnectionUtil.connectdb();
     }
@@ -103,25 +105,36 @@ public class ButtonController {
                                 int selectedIndex = getTableRow().getIndex();//0, 1, 2, 3 ...ì에 대해서
                                 OrderInfo selectedInfo = (OrderInfo) tblView.getItems().get(selectedIndex);
 
-                                String sql = "UPDATE orderinfo SET menu_receipt = '1' WHERE order_id=?";
-                                preparedStatement = connection.prepareStatement(sql);
-                                preparedStatement.setInt(1, selectedInfo.getOrderid());
-                                preparedStatement.executeUpdate();
+                                String sql3 = "select * from orderinfo where order_id=?";
+                                preparedStatement3 = connection.prepareStatement(sql3);
+                                preparedStatement3.setInt(1, selectedInfo.getOrderid());
+                                resultSet = preparedStatement3.executeQuery();
+                                while (resultSet.next()) {
+                                    if (resultSet.getInt("menu_complete") == 0) {//제작미완료
+                                        ErrorBox("해당 주문의 제작이 완료되지 않았습니다. \n제작을 완료하셨다면 제작완료 버튼을 먼저 눌러주세요", "오류", "음료 제작 미완료");
 
-                                String sql2 = "DELETE FROM ConsumerAndOrder WHERE order_id = ? ";//ConsumerAndOrder에서 삭제
-                                preparedStatement2 = connection.prepareStatement(sql2);
-                                preparedStatement2.setInt(1, selectedInfo.getOrderid());
-                                preparedStatement2.execute();
+                                    } else {//제작완료
 
-                                btn1.setVisible(false);//버튼 사라지게
-                                btn2.setVisible(false);
-                                /*
+                                        String sql = "UPDATE orderinfo SET menu_receipt = '1' WHERE order_id=?";
+                                        preparedStatement = connection.prepareStatement(sql);
+                                        preparedStatement.setInt(1, selectedInfo.getOrderid());
+                                        preparedStatement.executeUpdate();
+
+                                        String sql2 = "DELETE FROM ConsumerAndOrder WHERE order_id = ? ";//ConsumerAndOrder에서 삭제
+                                        preparedStatement2 = connection.prepareStatement(sql2);
+                                        preparedStatement2.setInt(1, selectedInfo.getOrderid());
+                                        preparedStatement2.execute();
+
+                                        btn1.setVisible(false);//버튼 사라지게
+                                        btn2.setVisible(false);
+                                        /*
                              *
                             OrderInfo data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
                              *
-                                 */
-
+                                         */
+                                    }
+                                }
                             } catch (SQLException e) {
                             }
                         });
@@ -129,28 +142,38 @@ public class ButtonController {
                         btn2.setOnAction((ActionEvent event) -> {//미수령버튼 클릭
                             try {
                                 int selectedIndex = getTableRow().getIndex();//0, 1, 2, 3 ...ì에 대해서
-
                                 OrderInfo selectedInfo = (OrderInfo) tblView.getItems().get(selectedIndex);
 
-                                String sql = "UPDATE orderinfo SET menu_receipt = '2' WHERE order_id=?";
-                                preparedStatement = connection.prepareStatement(sql);
-                                preparedStatement.setInt(1, selectedInfo.getOrderid());
-                                preparedStatement.executeUpdate();
+                                String sql3 = "select * from orderinfo where order_id=?";
+                                preparedStatement3 = connection.prepareStatement(sql3);
+                                preparedStatement3.setInt(1, selectedInfo.getOrderid());
+                                resultSet = preparedStatement3.executeQuery();
+                                while (resultSet.next()) {
+                                    if (resultSet.getInt("menu_complete") == 0) {//제작미완료
+                                        ErrorBox("해당 주문의 제작이 완료되지 않았습니다. \n제작을 완료하셨다면 제작완료 버튼을 먼저 눌러주세요", "오류", "음료 제작 미완료");
 
-                                String sql2 = "DELETE FROM ConsumerAndOrder WHERE order_id = ?";
-                                preparedStatement2 = connection.prepareStatement(sql2);
-                                preparedStatement2.setInt(1, selectedInfo.getOrderid());
-                                preparedStatement2.execute();
+                                    } else {//제작완료
 
-                                btn1.setVisible(false);
-                                btn2.setVisible(false);//버튼 사라지게
-                                /*
+                                        String sql = "UPDATE orderinfo SET menu_receipt = '2' WHERE order_id=?";
+                                        preparedStatement = connection.prepareStatement(sql);
+                                        preparedStatement.setInt(1, selectedInfo.getOrderid());
+                                        preparedStatement.executeUpdate();
+
+                                        String sql2 = "DELETE FROM ConsumerAndOrder WHERE order_id = ?";
+                                        preparedStatement2 = connection.prepareStatement(sql2);
+                                        preparedStatement2.setInt(1, selectedInfo.getOrderid());
+                                        preparedStatement2.execute();
+
+                                        btn1.setVisible(false);
+                                        btn2.setVisible(false);//버튼 사라지게
+                                        /*
                              *
                             OrderInfo data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
                              *
-                                 */
-
+                                         */
+                                    }
+                                }
                             } catch (SQLException e) {
                             }
                         });
@@ -234,6 +257,14 @@ public class ButtonController {
 
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
+    }
+
+    public static void ErrorBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
+        Alert alert = new Alert(Alert.AlertType.ERROR); // option은 information이나 confirmation
         alert.setTitle(titleBar);
         alert.setHeaderText(headerMessage);
         alert.setContentText(infoMessage);
