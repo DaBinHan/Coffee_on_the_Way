@@ -89,15 +89,29 @@
             <Image url="@../img/order_heading2.png" />
          </image>
       </ImageView>
-      <Button fx:id="BTN_To_Order" layoutX="168.0" layoutY="321.0" mnemonicParsing="false" onAction="#Push_BTN_To_Order" prefHeight="89.0" prefWidth="169.0" text="음료 주문">
+      <Button fx:id="BTN_To_Order" layoutX="168.0" layoutY="321.0" mnemonicParsing="false" onAction="#Push_BTN_To_Order" prefHeight="89.0" prefWidth="169.0">
          <font>
             <Font name="HYHeadLine-Medium" size="21.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Order.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
-      <Button fx:id="BTN_To_CheckCompletion" layoutX="495.0" layoutY="321.0" mnemonicParsing="false" onAction="#Push_BTN_To_CheckCompletion" prefHeight="89.0" prefWidth="169.0" text="주문 내역 조회">
+      <Button fx:id="BTN_To_CheckCompletion" layoutX="495.0" layoutY="321.0" mnemonicParsing="false" onAction="#Push_BTN_To_CheckCompletion" prefHeight="89.0" prefWidth="169.0">
          <font>
             <Font name="HYHeadLine-Medium" size="21.0" />
          </font>
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/ViewOrder.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </AnchorPane>
