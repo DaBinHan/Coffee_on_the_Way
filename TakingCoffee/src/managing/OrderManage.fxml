@@ -28,7 +28,7 @@
             <Image url="@../img/review_heading1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Store_heading" fitHeight="40.0" fitWidth="106.0" layoutX="757.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Store_heading" fitHeight="40.0" fitWidth="106.0" layoutX="757.0" layoutY="148.0" onMouseClicked="#ManagingClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/storemgmt_heading2.png" />
          </image>

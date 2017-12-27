@@ -204,7 +204,7 @@ public class PayForChargeController implements Initializable {
                     preparedStatement.setString(4, TakingCoffee.GiftCafe.getCafename());
 
                     //preparedStatement.setString(5, TakingCoffee.menuname);
-                    preparedStatement.setString(5, TakingCoffee.GiftCafe.getCafename());
+                    preparedStatement.setString(5, TakingCoffee.GiftCafe.Menu.getMenuName());
                     preparedStatement.executeUpdate();
 
                     Parent window1;
