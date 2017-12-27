@@ -78,18 +78,17 @@ public class GiftController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
     private ObservableList<Consumer> data = FXCollections.observableArrayList();
-    
+
     public GiftController() {
         connection = ConnectionUtil.connectdb();
     }
-    
+
     @FXML
-    private void btnSelect1(ActionEvent event) throws IOException{
+    private void btnSelect1(ActionEvent event) throws IOException {
         String id = SearchID.getText().toString(); // text를 입력받아 string으로 전환
 
         String sql = "SELECT * FROM consumer WHERE consumer_id = ?"; // sql문 하드코딩
@@ -102,15 +101,13 @@ public class GiftController implements Initializable {
                 infoBox("존재하지 않는 아이디입니다.", null);
             } else {
                 String UserName = resultSet.getString("name");
-                
-                
+
                 //TakingCoffee.Consumer.setId(resultSet.getString("consumer_id"));
                 //뜬금없이 사용자 아이디를 왜 바꿈?
-                
                 CheckBox("선물할 회원이 맞습니까?", null, UserName);
-                
+
                 TakingCoffee.receiverId = id;
-                
+
                 Parent window1;
                 window1 = FXMLLoader.load(getClass().getResource("ChooseCafe.fxml"));
 
@@ -123,7 +120,7 @@ public class GiftController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public static void infoBox(String infoMessage, String headerMessage) { // 알림창
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
         alert.setHeaderText(headerMessage);
@@ -137,11 +134,11 @@ public class GiftController implements Initializable {
         alert.setContentText("선물을 받으실 분 : " + UserName + "님!\n" + infoMessage);
         alert.showAndWait();
     }
-    
+
     @FXML
-    private void btnSelect2(ActionEvent event) throws IOException{
+    private void btnSelect2(ActionEvent event) throws IOException {
         TakingCoffee.receiverId = PhoneNumber.getText();
-        
+
         Parent window1;
         window1 = FXMLLoader.load(getClass().getResource("ChooseCafe.fxml"));
 
@@ -149,14 +146,69 @@ public class GiftController implements Initializable {
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void imageViewClicked(MouseEvent event) {
     }
-    
+
+    @FXML
+    private void Click_ImageView_Order_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/order/Order_Main.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Mypage_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Gift_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/gift/Gift.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Review_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/review/Review_FirstPage.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Store_heading(MouseEvent event) throws Exception {
+        infoBox("카페 사장님 전용 메뉴 입니다.", "안내", null);
+    }
+
+    public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
+    }
+
 }

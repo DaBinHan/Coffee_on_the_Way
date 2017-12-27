@@ -28,6 +28,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import takingcoffee.TakingCoffee;
 
@@ -158,14 +159,12 @@ public class Order_Step1_CafeChoiceController implements Initializable {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                
+
                 int GitfId = resultSet.getInt("gift_id");
                 String Cafe_Name = resultSet.getString("cafe_name");
                 String Menu_Name = resultSet.getString("menu_name");
-                
-                
-                
-                data2.add(new Gifticon(GitfId,TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name));
+
+                data2.add(new Gifticon(GitfId, TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name));
                 TableColumn_MyGificon_Cafe.setCellValueFactory(new PropertyValueFactory<>("CafeName"));
                 TableColumn_MyGificon_Menu.setCellValueFactory(new PropertyValueFactory<>("MenuName"));
 
@@ -297,14 +296,12 @@ public class Order_Step1_CafeChoiceController implements Initializable {
     @FXML
     private void Push_BTN_MyGifticon(ActionEvent event) throws Exception {
         Gifticon Gifticon = TableView_MyGificon.getSelectionModel().getSelectedItem();
-        
+
         int gift_id = Gifticon.getGiftId();
-        
-        
-        
+
         String CafeName = Gifticon.getCafeName();
         String MenuName = Gifticon.getMenuName();
-        
+
         confirmBox_Gifticon(gift_id, CafeName, MenuName);
     }
 
@@ -376,13 +373,13 @@ public class Order_Step1_CafeChoiceController implements Initializable {
                     int menucomplete = 0; // 미완성이므로
                     int menureceipt = 0; // 미수령이므로
                     String option = TakingCoffee.SelectedCafe.Menu.getOp();
-                      
+
                     TakingCoffee.Consumer_OrderInfo = new OrderInfo(orderid, consumerid, Cafename, menuname, amount, arrTime, PaymentType, menucomplete, menureceipt, option);
 
                     // 추후에 기프티콘 내역 삭제를 위해 기프티콘 정보도 저장해준다.
                     // Gifticon(int GiftId, String Receiver, String CafeName, String MenuName)
-                    TakingCoffee.Gifticon = new Gifticon(gift_id,  TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name);
-                    
+                    TakingCoffee.Gifticon = new Gifticon(gift_id, TakingCoffee.Consumer.getId(), Cafe_Name, Menu_Name);
+
                     // 그리고 step4로 넘어간다.
                     Parent window1;
                     window1 = FXMLLoader.load(getClass().getResource("Order_Step4_ArrTime.fxml"));
@@ -431,6 +428,53 @@ public class Order_Step1_CafeChoiceController implements Initializable {
         public void setMenu(SimpleStringProperty Menu) {
             this.Menu = Menu;
         }
+    }
+
+    @FXML
+    private void Click_ImageView_Order_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/order/Order_Main.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Mypage_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Gift_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/gift/Gift.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Review_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/review/Review_FirstPage.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Store_heading(MouseEvent event) throws Exception {
+        infoBox("카페 사장님 전용 메뉴 입니다.", "안내", null);
     }
 
 }

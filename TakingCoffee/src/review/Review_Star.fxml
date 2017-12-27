@@ -64,27 +64,27 @@
             <ColorInput height="15.0" paint="#525252" width="2.0" />
          </effect>
       </Separator>
-      <ImageView fx:id="ImageView_Gift_heading" fitHeight="25.0" fitWidth="80.0" layoutX="446.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Gift_heading" fitHeight="25.0" fitWidth="80.0" layoutX="446.0" layoutY="155.0" onMouseClicked="#Click_ImageView_Gift_heading" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/gift_heading1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Review_heading" fitHeight="40.0" fitWidth="106.0" layoutX="537.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Review_heading" fitHeight="40.0" fitWidth="106.0" layoutX="537.0" layoutY="148.0" onMouseClicked="#Click_ImageView_Review_heading" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/review_heading2.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Store_heading" fitHeight="25.0" fitWidth="80.0" layoutX="774.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Store_heading" fitHeight="25.0" fitWidth="80.0" layoutX="774.0" layoutY="155.0" onMouseClicked="#Click_ImageView_Store_heading" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/storemgmt_heading1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="25.0" fitWidth="100.0" layoutX="654.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Mypage_heading" fitHeight="25.0" fitWidth="100.0" layoutX="654.0" layoutY="155.0" onMouseClicked="#Click_ImageView_Mypage_heading" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/mypage_heading1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageView_Order_heading" fitHeight="25.0" fitWidth="80.0" layoutX="347.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="ImageView_Order_heading" fitHeight="25.0" fitWidth="80.0" layoutX="347.0" layoutY="155.0" onMouseClicked="#Click_ImageView_Order_heading" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/order_heading1.png" />
          </image>

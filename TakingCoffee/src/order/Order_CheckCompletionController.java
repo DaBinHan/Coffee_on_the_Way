@@ -10,7 +10,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -20,6 +22,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import takingcoffee.TakingCoffee;
 
 /**
@@ -118,7 +122,7 @@ public class Order_CheckCompletionController implements Initializable {
     private void Push_BTN_ChkComp(ActionEvent event) {
         ViewOrderInfo ViewOrderInfo = TableView_ChkComp.getSelectionModel().getSelectedItem();
         int OrderID = ViewOrderInfo.getOrderId();
-        
+
         String sql = "Select menu_complete from orderinfo where order_id = ?";
 
         try {
@@ -128,11 +132,10 @@ public class Order_CheckCompletionController implements Initializable {
 
             if (resultSet.next()) {
                 int menu_comp = resultSet.getInt("menu_complete");
-                
-                if (menu_comp == 0){
+
+                if (menu_comp == 0) {
                     infoBox("음료가 아직 완성되지 않았습니다", "안내", null);
-                }
-                else{
+                } else {
                     infoBox("음료가 완성되었습니다!", "안내", null);
                 }
             }
@@ -196,6 +199,53 @@ public class Order_CheckCompletionController implements Initializable {
         alert.setHeaderText(headerMessage);
         alert.setContentText(infoMessage);
         alert.showAndWait();
+    }
+
+    @FXML
+    private void Click_ImageView_Order_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/order/Order_Main.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Mypage_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Gift_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/gift/Gift.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Review_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/review/Review_FirstPage.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Store_heading(MouseEvent event) throws Exception {
+        infoBox("카페 사장님 전용 메뉴 입니다.", "안내", null);
     }
 
 }

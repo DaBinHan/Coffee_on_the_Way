@@ -30,7 +30,6 @@ public class My_PageController implements Initializable {
 
     /* My_Page.fxml은 '자주 가는 매장 목록'(BTN_FavoriteList), '나만의 메뉴 목록'(BTN_MyMenuList),
         '원두 충전'(BTN_Charge), '주문 내역'(BTN_OrderList) 버튼을 갖는다. */
-    
     @FXML
     private ImageView ImageView_MainTitle;
     @FXML
@@ -61,7 +60,7 @@ public class My_PageController implements Initializable {
     private ImageView ImageView_Mypage_heading;
     @FXML
     private ImageView ImageView_Order_heading;
-    
+
     @FXML
     private Button BTN_FavoriteList;
     @FXML
@@ -70,11 +69,11 @@ public class My_PageController implements Initializable {
     private Button BTN_Charge;
     @FXML
     private Button BTN_OrderList;
-    
+
     Connection connection = null;
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
-    
+
     public My_PageController() {
         connection = ConnectionUtil.connectdb();
     }
@@ -85,14 +84,14 @@ public class My_PageController implements Initializable {
     }
 
     @FXML
-    private void imageViewClicked(MouseEvent event) throws Exception{
-        
+    private void imageViewClicked(MouseEvent event) throws Exception {
+
     }
-    
+
     @FXML
-    private void btnFavoriteList(ActionEvent event) throws Exception{
+    private void btnFavoriteList(ActionEvent event) throws Exception {
         Parent window1;
-        window1=FXMLLoader.load(getClass().getResource("My_Favorite.fxml"));
+        window1 = FXMLLoader.load(getClass().getResource("My_Favorite.fxml"));
 
         Stage mainStage;
         mainStage = TakingCoffee.parentWindow;      // 원래는 mainStage = Mypage.parentWindow; 였음
@@ -100,35 +99,35 @@ public class My_PageController implements Initializable {
     }
 
     @FXML
-    private void btnMyMenuList(ActionEvent event) throws Exception{
+    private void btnMyMenuList(ActionEvent event) throws Exception {
         Parent window1;
-        window1=FXMLLoader.load(getClass().getResource("My_Menu.fxml"));
+        window1 = FXMLLoader.load(getClass().getResource("My_Menu.fxml"));
 
         Stage mainStage;
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-    
+
     @FXML
-    private void btnCharge(ActionEvent event) throws Exception{
+    private void btnCharge(ActionEvent event) throws Exception {
         Parent window1;
-        window1=FXMLLoader.load(getClass().getResource("Charge.fxml"));
+        window1 = FXMLLoader.load(getClass().getResource("Charge.fxml"));
 
         Stage mainStage;
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-    
+
     @FXML
-    private void btnOrderList(ActionEvent event) throws Exception{
+    private void btnOrderList(ActionEvent event) throws Exception {
         Parent window1;
-        window1=FXMLLoader.load(getClass().getResource("My_Order.fxml"));
+        window1 = FXMLLoader.load(getClass().getResource("My_Order.fxml"));
 
         Stage mainStage;
         mainStage = TakingCoffee.parentWindow;
         mainStage.getScene().setRoot(window1);
     }
-        
+
     public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
         Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
         alert.setTitle(titleBar);
@@ -136,5 +135,52 @@ public class My_PageController implements Initializable {
         alert.setContentText(infoMessage);
         alert.showAndWait();
     }
-    
+
+    @FXML
+    private void Click_ImageView_Order_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/order/Order_Main.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Mypage_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Gift_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/gift/Gift.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Review_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/review/Review_FirstPage.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Store_heading(MouseEvent event) throws Exception {
+        infoBox("카페 사장님 전용 메뉴 입니다.", "안내", null);
+    }
+
 }
