@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -73,7 +74,8 @@ public class Login_ManagerController implements Initializable {
     @FXML
     private TextField TextField_ID;
     @FXML
-    private TextField TextField_PW;
+    private PasswordField PasswordField_PW;
+
     @FXML
     private Button BTN_Login;
 
@@ -89,7 +91,7 @@ public class Login_ManagerController implements Initializable {
     @FXML
     private void Push_BTN_Login(ActionEvent event) {
         String id = TextField_ID.getText().toString(); // text를 입력받아 string으로 전환
-        String pw = TextField_PW.getText().toString();
+        String pw = PasswordField_PW.getText().toString();
 
         String sql = "SELECT * FROM manager WHERE manager_id = ? and password = ?"; // sql문 하드코딩
 
@@ -106,7 +108,7 @@ public class Login_ManagerController implements Initializable {
                 String CafeName = resultSet.getString("cafe_name");
                 String phonenumber = resultSet.getString("phonenumber");
                 String Email = resultSet.getString("Email");
-                
+
                 //Consumer 객체에 정보 저장
                 TakingCoffee.Manager = new Manager(id, pw, UserName, CafeName, phonenumber, Email);
 

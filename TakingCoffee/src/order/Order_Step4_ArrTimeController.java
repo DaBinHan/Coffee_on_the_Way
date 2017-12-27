@@ -108,14 +108,23 @@ public class Order_Step4_ArrTimeController implements Initializable {
         String Hour = ComboBox_Hour.getSelectionModel().getSelectedItem();
 
         if (AMPM.compareTo("AM") == 0) {
+
             int IntHour = Integer.parseInt(Hour);
 
-            if (IntHour < 10) {
+            if (IntHour == 12) {
+                Hour = "00";
+            } else if (IntHour < 10) {
                 Hour = "0" + Hour;
             }
         } else if (AMPM.compareTo("PM") == 0) {
-            int IntHour = Integer.parseInt(Hour) + 12;
-            Hour = Integer.toString(IntHour);
+
+            int intHour;
+            if (Integer.parseInt(Hour) == 12) {
+                intHour = 12;
+            } else {
+                intHour = Integer.parseInt(Hour) + 12;
+            }
+            Hour = Integer.toString(intHour);
         }
 
         String Min = ComboBox_Min.getSelectionModel().getSelectedItem();
@@ -127,13 +136,12 @@ public class Order_Step4_ArrTimeController implements Initializable {
         // "yyyy-MM-dd hh:mm:ss"
         String ArrTime = Year + "-" + Month + "-" + Date + " " + Hour + ":" + Min + ":" + "00";
 
-        
         //** 시간을 비교하는 부분 **//
         //현재 시각과 분
-        int cur_hour = cal.get(Calendar.HOUR);
+        int cur_hour = cal.get(Calendar.HOUR_OF_DAY); //24시간제
         int cur_min = cal.get(Calendar.MINUTE);
+        
         if (cur_hour > Integer.parseInt(Hour)) {
-
             infoBox("현재 시각 이후의 시간을 입력해주세요.", "안내", null);
         } else if (cur_hour == Integer.parseInt(Hour) && cur_min >= Integer.parseInt(Min)) {
             infoBox("현재 시각 이후의 시간을 입력해주세요.", "안내", null);

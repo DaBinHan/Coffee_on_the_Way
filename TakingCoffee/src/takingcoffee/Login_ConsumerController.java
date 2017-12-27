@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -69,7 +70,7 @@ public class Login_ConsumerController implements Initializable {
     @FXML
     private TextField TextField_ID;
     @FXML
-    private TextField TextField_PW;
+    private PasswordField PasswordField_PW;
     @FXML
     private Button BTN_Login;
 
@@ -88,7 +89,7 @@ public class Login_ConsumerController implements Initializable {
     @FXML
     private void Push_BTN_Login(ActionEvent event) {
         String id = TextField_ID.getText().toString(); // text를 입력받아 string으로 전환
-        String pw = TextField_PW.getText().toString();
+        String pw = PasswordField_PW.getText().toString();
 
         String sql = "SELECT * FROM consumer WHERE consumer_id = ? and password = ?"; // sql문 하드코딩
 

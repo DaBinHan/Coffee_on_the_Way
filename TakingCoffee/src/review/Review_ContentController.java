@@ -24,6 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import takingcoffee.TakingCoffee;
 import takingcoffee.util.ConnectionUtil;
@@ -81,7 +82,7 @@ public class Review_ContentController implements Initializable {
     private Label Label_cafename;
     @FXML
     private Label Label_menuname;
-    
+
     //디비를 사용하기 위한 3세트
     Connection connection = null;
     PreparedStatement preparedStatement = null;
@@ -190,5 +191,60 @@ public class Review_ContentController implements Initializable {
         } else {//자주가는 매장 목록에 없으면
             return true;
         }
+    }
+
+    @FXML
+    private void Click_ImageView_Order_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/order/Order_Main.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Mypage_heading(MouseEvent event) throws Exception {
+
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/mypage/My_Page.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Gift_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/gift/Gift.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Review_heading(MouseEvent event) throws Exception {
+        Parent window1;
+        window1 = FXMLLoader.load(getClass().getResource("/review/Review_FirstPage.fxml"));
+
+        Stage mainStage; //Here is the magic. We get the reference to main Stage.
+        mainStage = TakingCoffee.parentWindow;
+        mainStage.getScene().setRoot(window1); //we dont need to change whole sceene, only set new root.
+    }
+
+    @FXML
+    private void Click_ImageView_Store_heading(MouseEvent event) throws Exception {
+        infoBox("카페 사장님 전용 메뉴 입니다.", "안내", null);
+    }
+
+    public static void infoBox(String infoMessage, String titleBar, String headerMessage) { // 알림창
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); // option은 information이나 confirmation
+        alert.setTitle(titleBar);
+        alert.setHeaderText(headerMessage);
+        alert.setContentText(infoMessage);
+        alert.showAndWait();
     }
 }
